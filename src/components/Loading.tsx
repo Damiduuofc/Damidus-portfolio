@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./styles/Loading.css";
 import { useLoading } from "../context/LoadingProvider";
-
 import Marquee from "react-fast-marquee";
 
 const Loading = ({ percent }: { percent: number }) => {
@@ -54,7 +53,7 @@ const Loading = ({ percent }: { percent: number }) => {
     <>
       <div className="loading-header">
         <a href="/#" className="loader-title" data-cursor="disable">
-         <span style={{ color: "#ffffff", fontSize: "1.5rem", fontWeight: "bold" }}>{"<D"}</span>
+          <span style={{ color: "#ffffff", fontSize: "1.5rem", fontWeight: "bold" }}>{"<D"}</span>
           <span style={{ color: "#c2a4ff", fontSize: "1.5rem", fontWeight: "bold" }}>{"A/>"}</span>
         </a>
         <div className={`loaderGame ${clicked && "loader-out"}`}>
@@ -104,20 +103,24 @@ export default Loading;
 export const setProgress = (setLoading: (value: number) => void) => {
   let percent: number = 0;
 
+  // Phase 1: fast-ish ramp to 40% (every 100ms, +1 or +2)
   let interval = setInterval(() => {
-    if (percent <= 50) {
-      let rand = Math.round(Math.random() * 5);
-      percent = percent + rand;
+    if (percent < 40) {
+      const rand = Math.round(Math.random() * 2) + 1; // +1 or +2
+      percent = Math.min(percent + rand, 40);
       setLoading(percent);
     } else {
       clearInterval(interval);
+
+      // Phase 2: slow crawl 40% → 90% (every 600ms, +1)
       interval = setInterval(() => {
-        percent = percent + Math.round(Math.random());
-        setLoading(percent);
-        if (percent > 91) {
+        if (percent < 90) {
+          percent += 1;
+          setLoading(percent);
+        } else {
           clearInterval(interval);
         }
-      }, 2000);
+      }, 600);
     }
   }, 100);
 
@@ -128,7 +131,7 @@ export const setProgress = (setLoading: (value: number) => void) => {
 
   function loaded() {
     return new Promise<number>((resolve) => {
-      clearInterval(interval);
+      clearInterval(interval); // stop phase 2 wherever it is
       interval = setInterval(() => {
         if (percent < 100) {
           percent++;
@@ -140,5 +143,6 @@ export const setProgress = (setLoading: (value: number) => void) => {
       }, 2);
     });
   }
+
   return { loaded, percent, clear };
 };
