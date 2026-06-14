@@ -153,12 +153,13 @@
   width: 90%;
 }
 .work-image {
-  display: flex;
+  display: block;
   width: 100%;
-  justify-content: center;
 }
 .work-image-in {
   position: relative;
+  display: block;
+  width: 100%;
 }
 .work-link {
   position: absolute;
@@ -193,8 +194,11 @@
   object-fit: cover;
 }
 .work-image img {
+  display: block;
+  width: 100%;
   max-width: 100%;
   max-height: 350px;
+  object-fit: cover;
 }
 @media only screen and (max-height: 900px) {
   .work-image img {
