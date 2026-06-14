@@ -35,16 +35,24 @@ const Navbar = () => {
         }
       });
     });
-    window.addEventListener("resize", () => {
-      ScrollSmoother.refresh(true);
-    });
+    
+    // Cleanup event listener on unmount
+    return () => {
+      window.removeEventListener("resize", () => {
+        ScrollSmoother.refresh(true);
+      });
+    };
   }, []);
+
   return (
     <>
       <div className="header">
-        <a href="/#" className="navbar-title" data-cursor="disable">
-          Logo
+        {/* Fixed Logo Section */}
+        <a href="/#" className="navbar-logo-text" data-cursor="disable">
+          <span style={{ color: "#ffffff", fontSize: "1.5rem", fontWeight: "bold" }}>{"<D"}</span>
+          <span style={{ color: "#c2a4ff", fontSize: "1.5rem", fontWeight: "bold" }}>{"A/>"}</span>
         </a>
+
         <a
           href="mailto:damiduofc@mail.com"
           className="navbar-connect"

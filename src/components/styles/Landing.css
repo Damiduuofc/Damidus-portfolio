@@ -12,6 +12,38 @@
   position: relative;
   max-width: var(--cMaxWidth);
 }
+.landing-character {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  width: min(34vw, 420px);
+  z-index: 8;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: character-bob 5.8s ease-in-out infinite;
+}
+.landing-character img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform-origin: 50% 100%;
+  animation: character-bow 5.8s ease-in-out infinite;
+  filter: drop-shadow(0 18px 25px rgba(0, 0, 0, 0.35));
+}
+.landing-character-shadow {
+  position: absolute;
+  bottom: 8%;
+  width: 68%;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 72%);
+  filter: blur(10px);
+  opacity: 0.55;
+  animation: character-shadow 5.8s ease-in-out infinite;
+}
 .landing-circle1 {
   top: 0%;
   left: 0%;
@@ -67,6 +99,41 @@
 @keyframes loadingCircle2 {
   100% {
     transform: translate(calc(100% - 2px), -50%) rotate(360deg);
+  }
+}
+@keyframes character-bob {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) translateY(0px);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-12px);
+  }
+}
+@keyframes character-bow {
+  0%,
+  100% {
+    transform: rotate(0deg) translateY(0px);
+  }
+  30% {
+    transform: rotate(-1deg) translateY(0px);
+  }
+  50% {
+    transform: rotate(7deg) translateY(10px);
+  }
+  70% {
+    transform: rotate(-1deg) translateY(0px);
+  }
+}
+@keyframes character-shadow {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(0.82);
+    opacity: 0.35;
   }
 }
 .landing-intro {
@@ -161,6 +228,10 @@ h2.landing-info-h2 {
   .landing-circle2 {
     display: block;
   }
+  .landing-character {
+    width: min(30vw, 360px);
+    top: 53%;
+  }
   .landing-info h3 {
     font-size: 18px;
   }
@@ -180,6 +251,9 @@ h2.landing-info-h2 {
   }
 }
 @media screen and (min-width: 768px) {
+  .landing-character {
+    width: min(26vw, 380px);
+  }
   .landing-intro h2 {
     font-size: 25px;
   }
@@ -199,6 +273,10 @@ h2.landing-info-h2 {
   }
 }
 @media screen and (min-width: 1025px) {
+  .landing-character {
+    width: min(24vw, 420px);
+    top: 52%;
+  }
   .landing-intro {
     top: 50%;
     left: auto;
@@ -217,6 +295,9 @@ h2.landing-info-h2 {
   }
 }
 @media screen and (min-width: 1200px) {
+  .landing-character {
+    width: min(22vw, 420px);
+  }
   .landing-intro {
     top: 50%;
     left: auto;
@@ -235,6 +316,9 @@ h2.landing-info-h2 {
   }
 }
 @media screen and (min-width: 1600px) {
+  .landing-character {
+    width: min(20vw, 460px);
+  }
   .landing-intro h2 {
     font-size: 35px;
   }
@@ -251,5 +335,23 @@ h2.landing-info-h2 {
   }
   h2.landing-info-h2 {
     font-size: 75px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .landing-character {
+    width: min(42vw, 280px);
+    top: 58%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .landing-character {
+    width: min(48vw, 220px);
+    top: 56%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .landing-character {
+    width: 58vw;
+    top: 60%;
   }
 }

@@ -1,20 +1,49 @@
 .about-section {
   display: flex;
   align-items: center;
-  justify-content: left;
-  place-items: center;
+  justify-content: center;
   position: relative;
-  opacity: 1;
-  height: auto;
   width: var(--cWidth);
+  max-width: 1920px;
   margin: auto;
+  min-height: var(--vh, 80vh);
+  padding: 2rem 0;
 }
+
+/* Parent wrapper - Now forced to ALWAYS be side-by-side */
+.about-container {
+  display: flex;
+  flex-direction: row; /* Forces photo left, text right on ALL screens */
+  align-items: center;
+  justify-content: flex-start; /* Aligns everything to the left edge */
+  gap: 3rem;
+  width: 100%;
+  /* Remove padding here if you want the photo touching the absolute edge of the screen */
+  padding: 0 15px; 
+}
+
+/* Image container (Left Side) */
+.about-image-container {
+  flex: 1.5; /* Gives the image container more space to grow */
+  display: flex;
+  justify-content: flex-start; /* Pushes the image to the far left edge */
+}
+
+.about-image {
+  width: 100%;
+  max-width: 700px; /* INCREASED: Makes the image much larger */
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* Text container (Right Side) */
 .about-me {
-  padding: 50px 0px;
-  padding-bottom: 0;
-  width: 500px;
-  max-width: calc(100% - 15px);
+  flex: 1; /* Text takes up the remaining space on the right */
+  text-align: left;
+  max-width: 600px;
 }
+
 .about-me h3 {
   font-size: 25px;
   text-transform: uppercase;
@@ -24,48 +53,30 @@
 }
 
 .about-me p {
-  font-size: 33px;
-  font-weight: 600;
-  line-height: 36px;
-  letter-spacing: 1px;
+  font-size: 1.1rem; 
+  line-height: 1.6;
 }
 
-@media only screen and (min-width: 600px) {
-  .about-section {
-    justify-content: center;
-  }
-}
-@media only screen and (min-width: 768px) {
-  .about-me {
-    width: 500px;
-    max-width: calc(100% - 70px);
-    transform: translateY(0%);
-  }
-  .about-section {
-    opacity: 1;
-  }
-}
+/* --- Media Queries for Larger Screens --- */
 @media only screen and (min-width: 1025px) {
   .about-section {
-    width: var(--cWidth);
-    justify-content: right;
-    max-width: 1920px;
     height: var(--vh);
-    padding: 0px;
-    opacity: 1;
   }
-  .about-me {
-    padding: 0px;
-    width: 50%;
-  }
+  
   .about-me p {
-    font-size: 1.9vw;
-    line-height: 2.3vw;
+    font-size: 1.5rem;
+    line-height: 1.5;
+  }
+  
+  /* Make the image even larger on huge screens if desired */
+  .about-image {
+    max-width: 850px; 
   }
 }
+
 @media only screen and (min-width: 1950px) {
   .about-me p {
-    font-size: 2.5rem;
-    line-height: 2.7rem;
+    font-size: 2rem;
+    line-height: 1.5;
   }
 }

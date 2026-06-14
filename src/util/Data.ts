@@ -85,7 +85,6 @@ export const workData: WorkItem[] = [
     tools: "Electron, Node.js, Html, MySQL, CSS",
     image: "/images/kdu-minimart-pos.jpg",
     alt: "KDU MiniMart POS System",
-    video: "/videos/kdu-minimart-pos.mp4",
     link: "https://github.com/Damiduuofc/KDU-MINI-MART-POS-SYSTEM",
   }
 ];

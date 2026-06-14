@@ -24,6 +24,10 @@ const Landing = () => {
               <div className="landing-h2-info-1">Designer</div>
             </h2>
           </div>
+          <div className="landing-character" aria-hidden="true">
+            <div className="landing-character-shadow" />
+            <img src="/images/character.png" alt="" />
+          </div>
         </div>
       </div>
     </>

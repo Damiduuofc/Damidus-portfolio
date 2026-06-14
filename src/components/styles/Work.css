@@ -1,31 +1,85 @@
 .work-section h2 {
-  margin-top: 100px;
   font-size: 70px;
   font-weight: 500;
+  margin: 0;
 }
 .work-section h2 > span {
   color: var(--accentColor);
 }
 .work-section {
   transition: 0s;
-  height: 100vh;
+  min-height: 100vh;
   box-sizing: border-box;
-  will-change: transform;
 }
 .work-container {
   margin: auto;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100vh;
   align-content: stretch;
+  justify-content: center;
+  gap: 35px;
+  overflow: hidden;
 }
-.work-flex {
-  width: 100%;
+.work-header {
   display: flex;
-  height: 100%;
-  margin-left: -80px;
-  padding-right: 120px;
+  align-items: end;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.work-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  border-radius: 999px;
+  border: 1px solid var(--accentColor);
+  color: var(--textColor);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.08), inset 0 0 16px rgba(255, 255, 255, 0.05);
+  transition: 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.work-cta:hover {
+  transform: translateY(-2px);
+  color: var(--textColor);
+  border-color: var(--textColor);
+  box-shadow: 0 0 22px rgba(255, 255, 255, 0.14), inset 0 0 16px rgba(255, 255, 255, 0.08);
+}
+.work-marquee {
+  width: 100%;
+  overflow: hidden;
   position: relative;
+  padding: 10px 0 20px;
+}
+.work-marquee::before,
+.work-marquee::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  pointer-events: none;
+  z-index: 2;
+}
+.work-marquee::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--backgroundColor) 0%, rgba(13, 13, 13, 0) 100%);
+}
+.work-marquee::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--backgroundColor) 0%, rgba(13, 13, 13, 0) 100%);
+}
+.work-track {
+  display: flex;
+  width: max-content;
+  gap: 0;
+  animation: work-marquee 42s linear infinite;
+  will-change: transform;
 }
 .work-box {
   padding: 80px;
@@ -38,21 +92,34 @@
   gap: 50px;
   justify-content: start;
 }
-.work-flex .work-box:nth-child(even) {
+.work-track .work-box:nth-child(even) {
   flex-direction: column-reverse;
 }
-.work-flex::before,
-.work-flex::after {
+.work-track .work-box:last-child {
+  border-right: 1px solid #363636;
+}
+@keyframes work-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.work-track:hover {
+  animation-play-state: paused;
+}
+.work-track::before,
+.work-track::after {
   content: "";
   width: calc(50000vw);
   height: 1px;
   background-color: #363636;
   position: absolute;
-  left: 50%;
+  left: 0;
   top: 0;
-  transform: translateX(-50%);
 }
-.work-flex::after {
+.work-track::after {
   top: 100%;
 }
 .work-title {
@@ -139,8 +206,6 @@
   }
   .work-section h2 {
     font-size: 60px;
-    margin-bottom: 30px;
-    margin-top: 70px;
   }
 }
 @media only screen and (max-width: 1400px) {
@@ -157,10 +222,6 @@
     width: 450px;
     padding: 50px;
   }
-  .work-flex {
-    margin-left: -50px;
-    padding-right: 75px;
-  }
   .work-section h2 {
     font-size: 50px;
   }
@@ -170,10 +231,6 @@
     width: 350px;
     padding: 30px;
   }
-  .work-flex {
-    margin-left: -30px;
-    padding-right: 45px;
-  }
 }
 
 @media only screen and (max-height: 650px) {
@@ -182,29 +239,23 @@
   }
   .work-section h2 {
     font-size: 40px;
-    margin-bottom: 20px;
   }
   .work-box {
     gap: 20px;
   }
 }
-/* @media only screen and (max-width: 900px) {
-  .work-image img {
-    max-height: 200px;
-  }
-  .work-section h2 {
-    font-size: 40px;
-    margin-bottom: 20px;
-  }
-  .work-box {
-    gap: 20px;
-  }
-} */
 @media only screen and (max-width: 1025px) {
   .work-container {
     align-content: normal;
   }
-  .work-flex {
-    height: auto;
+  .work-header {
+    align-items: start;
+  }
+  .work-marquee::before,
+  .work-marquee::after {
+    width: 60px;
+  }
+  .work-track {
+    animation-duration: 52s;
   }
 }
