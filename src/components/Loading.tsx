@@ -103,26 +103,15 @@ export default Loading;
 export const setProgress = (setLoading: (value: number) => void) => {
   let percent: number = 0;
 
-  // Phase 1: fast-ish ramp to 40% (every 100ms, +1 or +2)
+  // 1% every 20ms = 100 steps * 20ms = 2000ms (Exactly 2 seconds)
   let interval = setInterval(() => {
-    if (percent < 40) {
-      const rand = Math.round(Math.random() * 2) + 1; // +1 or +2
-      percent = Math.min(percent + rand, 40);
+    if (percent < 100) {
+      percent += 1;
       setLoading(percent);
     } else {
       clearInterval(interval);
-
-      // Phase 2: slow crawl 40% → 90% (every 600ms, +1)
-      interval = setInterval(() => {
-        if (percent < 90) {
-          percent += 1;
-          setLoading(percent);
-        } else {
-          clearInterval(interval);
-        }
-      }, 600);
     }
-  }, 100);
+  }, 20);
 
   function clear() {
     clearInterval(interval);
@@ -131,7 +120,8 @@ export const setProgress = (setLoading: (value: number) => void) => {
 
   function loaded() {
     return new Promise<number>((resolve) => {
-      clearInterval(interval); // stop phase 2 wherever it is
+      clearInterval(interval); 
+      // If loaded() is called early, fast-forward the rest of the bar rapidly
       interval = setInterval(() => {
         if (percent < 100) {
           percent++;
