@@ -3,7 +3,9 @@
   max-width: var(--cMaxWidth);
   margin: auto;
   position: relative;
-  height: var(--vh);
+  /* THE FIX: Add a comma and 100vh to act as a fallback */
+  height: var(--vh, 100vh);
+  min-height: 100vh; /* Ensures it never collapses */
 }
 .landing-container {
   width: var(--cWidth);
