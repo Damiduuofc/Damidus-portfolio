@@ -1,9 +1,16 @@
+import { useEffect } from "react";
 import { workData } from "../util/Data";
 import WorkImage from "./WorkImage";
 import "./styles/ProjectsPage.css";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
+
 const ProjectsPage = () => {
+  // Scrolls to the top of the page when the component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <section className="projects-page" id="projects">
       <div className="projects-container section-container">
