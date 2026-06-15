@@ -36,7 +36,7 @@ const ProjectsPage = () => {
                     <p>{project.category}</p>
                   </div>
                 </div>
-                <h4>Tools and features</h4>
+                <h4>Tools</h4>
                 <p>{project.tools}</p>
               </div>
 
