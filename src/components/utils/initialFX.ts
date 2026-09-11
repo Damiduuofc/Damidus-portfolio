@@ -1,5 +1,6 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { smoother } from "../Navbar";
 
 export function initialFX() {
@@ -7,8 +8,9 @@ export function initialFX() {
   document.body.style.overflowY = "auto";
   document.querySelector("#smooth-content")?.classList.add("main-active");
 
-  if (smoother) {
-    smoother.paused(false);
+  const activeSmoother = ScrollSmoother.get() || smoother;
+  if (activeSmoother) {
+    activeSmoother.paused(false);
   }
 
   // Refresh ScrollTrigger to calculate heights correctly after the loading screen is unmounted

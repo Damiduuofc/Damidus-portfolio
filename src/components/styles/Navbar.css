@@ -52,6 +52,7 @@
   .header ul {
     flex-direction: row;
     align-items: center;
+    column-gap: 28px;
     font-size: 14px;
   }
   .header ul li {
@@ -71,7 +72,7 @@
     padding: 35px 0px;
   }
   .header ul {
-    column-gap: 80px;
+    column-gap: 48px;
     font-size: 16px;
   }
   .navbar-connect {

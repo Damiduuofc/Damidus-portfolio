@@ -8,6 +8,7 @@ import Landing from "./components/Landing";
 import About from "./components/About";
 import WhatIDo from "./components/WhatIDo";
 import Work from "./components/Work";
+import Publications from "./components/Publications";
 import ProjectsPage from "./components/ProjectsPage";
 //import Career from "./components/Career";
 import Contact from "./components/Contact";
@@ -21,6 +22,7 @@ const HomePage = () => (
     <About />
     <WhatIDo />
     <Work />
+    <Publications />
     {/* <Career /> */}
     <Contact />
   </>
