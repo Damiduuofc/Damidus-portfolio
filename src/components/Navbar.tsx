@@ -43,9 +43,10 @@ const Navbar = () => {
       activeSmoother = ScrollSmoother.create({
         wrapper: "#smooth-wrapper",
         content: "#smooth-content",
-        smooth: 1.7,
-        speed: 1.7,
-        effects: true,
+        // 1:1 wheel distance with a short glide; higher values feel heavy
+        smooth: 1,
+        speed: 1,
+        effects: false,
         autoResize: true,
         ignoreMobileResize: true,
       });

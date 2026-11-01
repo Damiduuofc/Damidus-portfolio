@@ -35,32 +35,32 @@ export const hackathonData: HackathonItem[] = [
       {
         src: "/images/hackathons/cre8x-team.jpg",
         alt: "Team Beyond Interface standing in front of the Cre8X 3.0 banner",
-        caption: "Team Beyond Interface",
+        caption: "The Cre8X 3.0",
       },
       {
         src: "/images/hackathons/cre8x-award.jpg",
         alt: "Receiving the finalist recognition on stage at Cre8X 3.0",
-        caption: "Recognition of finalist teams",
+        caption: "",
       },
       {
         src: "/images/hackathons/cre8x-finalists.jpg",
         alt: "Team Beyond Interface on stage holding finalist certificates",
-        caption: "Grand Finale — Top 10",
+        caption: "The Cre8X 3.0",
       },
       {
         src: "/images/hackathons/cre8x-certificate.jpg",
         alt: "Cre8X 3.0 certificate of achievement awarded to Damidu Abeysinghe",
-        caption: "Certificate of achievement",
+        caption: "The Cre8X 3.0",
       },
       {
         src: "/images/hackathons/cre8x-stage.jpg",
         alt: "The Cre8X 3.0 stage at General Sir John Kotelawala Defence University",
-        caption: "The Cre8X 3.0 stage",
+        caption: "The Cre8X 3.0",
       },
       {
         src: "/images/hackathons/cre8x-participants.jpg",
         alt: "Group photo of all Cre8X 3.0 participants on stage",
-        caption: "All participants",
+        caption: "The Cre8X 3.0",
       },
     ],
   },

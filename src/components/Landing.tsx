@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useLoading } from "../context/LoadingProvider";
 import "./styles/Landing.css";
@@ -27,6 +28,72 @@ function rollWords(first: string, second: string) {
     .set(second, { yPercent: 100 });
 }
 
+gsap.registerPlugin(ScrollTrigger);
+
+// Avatar motion: soft reveal, slow float, a slight lean toward the pointer
+// and a gentle sink as the hero scrolls away
+function animateCharacter() {
+  const mm = gsap.matchMedia();
+
+  mm.add(
+    {
+      full: "(prefers-reduced-motion: no-preference)",
+      reduced: "(prefers-reduced-motion: reduce)",
+      finePointer: "(hover: hover) and (pointer: fine)",
+    },
+    (ctx) => {
+      const { full, finePointer } = ctx.conditions as Record<string, boolean>;
+
+      gsap.fromTo(
+        ".landing-character-motion",
+        { autoAlpha: 0, y: full ? 40 : 0, scale: full ? 0.96 : 1, filter: full ? "blur(10px)" : "none" },
+        { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: full ? 1.6 : 0.6, ease: "expo.out", delay: 0.2 }
+      );
+      gsap.fromTo(".landing-character-halo", { autoAlpha: 0 }, { autoAlpha: 1, duration: 2, delay: 0.4 });
+
+      if (!full) return;
+
+      // Idle float, with the floor shadow tightening as the avatar rises
+      gsap.to(".landing-character-float", { y: -8, duration: 3.2, ease: "sine.inOut", yoyo: true, repeat: -1 });
+      gsap.to(".landing-character-shadow", {
+        scaleX: 0.9,
+        autoAlpha: 0.35,
+        duration: 3.2,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+      });
+      gsap.to(".landing-character-halo", { scale: 1.06, duration: 4, ease: "sine.inOut", yoyo: true, repeat: -1 });
+
+      // Sink and fade as the hero leaves the screen
+      gsap.to(".landing-character-scroll", {
+        y: 120,
+        scale: 0.94,
+        autoAlpha: 0.2,
+        ease: "none",
+        scrollTrigger: { trigger: ".landing-section", start: "top top", end: "bottom top", scrub: true },
+      });
+
+      if (!finePointer) return;
+
+      // Lean toward the pointer (a few px / degrees, eased)
+      const tilt = ".landing-character-tilt";
+      const toX = gsap.quickTo(tilt, "x", { duration: 0.9, ease: "power3.out" });
+      const toRotY = gsap.quickTo(tilt, "rotationY", { duration: 0.9, ease: "power3.out" });
+      const toRotX = gsap.quickTo(tilt, "rotationX", { duration: 0.9, ease: "power3.out" });
+      const onMove = (e: MouseEvent) => {
+        const nx = e.clientX / window.innerWidth - 0.5;
+        const ny = e.clientY / window.innerHeight - 0.5;
+        toX(nx * 18);
+        toRotY(nx * 10);
+        toRotX(ny * -5);
+      };
+      window.addEventListener("mousemove", onMove);
+      return () => window.removeEventListener("mousemove", onMove);
+    }
+  );
+}
+
 const Landing = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { isLoading } = useLoading();
@@ -36,6 +103,7 @@ const Landing = () => {
   useGSAP(
     () => {
       if (isLoading) return;
+      animateCharacter();
       rollWords(".landing-h2-info", ".landing-h2-info-1");
       rollWords(".landing-h2-1", ".landing-h2-2");
     },
@@ -47,12 +115,20 @@ const Landing = () => {
       <div className="landing-section" id="landingDiv">
         <div className="landing-container" ref={containerRef}>
           <div className="landing-intro">
-            <h2>Hello! I'm</h2>
+            <h2>
+              <span lang="si" className="landing-si">
+                ආයුබෝවන්
+              </span>{" "}
+              · Ayubowan, I'm
+            </h2>
             <h1>
               Damidu
               <br />
               <span>Abeysinghe</span>
             </h1>
+            <p className="landing-greeting-note">
+              Ayubowan is the Sri Lankan greeting — “may you live long”
+            </p>
           </div>
           <div className="landing-info">
             <h3>A Creative</h3>
@@ -66,8 +142,17 @@ const Landing = () => {
             </h2>
           </div>
           <div className="landing-character" aria-hidden="true">
-            <div className="landing-character-shadow" />
-            <img src="/images/character.webp" alt="" width={383} height={753} />
+            <div className="landing-character-halo" />
+            <div className="landing-character-scroll">
+              <div className="landing-character-motion">
+                <div className="landing-character-shadow" />
+                <div className="landing-character-tilt">
+                  <div className="landing-character-float">
+                    <img src="/images/character.webp" alt="" width={383} height={753} />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

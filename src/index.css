@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Noto+Sans+Sinhala:wght@400..600&display=swap");
 
 :root {
   font-family: "Geist", sans-serif;
@@ -6,7 +6,6 @@
   font-optical-sizing: auto;
   font-style: normal;
   line-height: 1.5;
-  scroll-behavior: smooth;
   color-scheme: light dark;
   color: #eae5ec;
   background-color: var(--backgroundColor);
@@ -121,4 +120,12 @@ body {
   .techstack h2 {
     font-size: 40px;
   }
+}
+
+/* Sinhala text: a font that has the script, and no tracking/uppercase,
+   which would break the combining vowel signs */
+:lang(si) {
+  font-family: "Noto Sans Sinhala", "Geist", sans-serif;
+  letter-spacing: normal;
+  text-transform: none;
 }

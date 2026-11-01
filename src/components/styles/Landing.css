@@ -22,29 +22,52 @@
   width: min(34vw, 420px);
   z-index: 8;
   pointer-events: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  animation: character-bob 5.8s ease-in-out infinite;
+  perspective: 900px;
+}
+/* Motion layers — each is driven by one GSAP tween (see Landing.tsx) */
+.landing-character-scroll,
+.landing-character-motion,
+.landing-character-tilt,
+.landing-character-float {
+  position: relative;
+  will-change: transform;
+}
+.landing-character-motion {
+  opacity: 0; /* revealed by the entrance tween */
+}
+.landing-character-tilt {
+  transform-style: preserve-3d;
 }
 .landing-character img {
   width: 100%;
   height: auto;
   display: block;
-  transform-origin: 50% 100%;
-  animation: character-bow 5.8s ease-in-out infinite;
-  filter: drop-shadow(0 18px 25px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.4));
+}
+/* Soft lavender halo behind the avatar */
+.landing-character-halo {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: 120%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(194, 164, 255, 0.22) 0%, rgba(194, 164, 255, 0.06) 45%, transparent 70%);
+  filter: blur(20px);
+  opacity: 0;
+  will-change: transform, opacity;
 }
 .landing-character-shadow {
   position: absolute;
-  bottom: 8%;
+  left: 16%;
+  bottom: 2%;
   width: 68%;
   height: 22px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 72%);
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 72%);
   filter: blur(10px);
   opacity: 0.55;
-  animation: character-shadow 5.8s ease-in-out infinite;
 }
 .landing-circle1 {
   top: 0%;
@@ -57,6 +80,7 @@
   box-shadow: inset -50px 40px 50px rgba(84, 0, 255, 0.6);
   filter: blur(60px);
   border-radius: 50%;
+  will-change: transform;
   animation: loadingCircle 5s linear infinite;
 }
 .nav-fade {
@@ -95,47 +119,13 @@
   background-color: #fb8dff;
   box-shadow: inset -50px 40px 50px rgba(84, 0, 255, 0.6);
   filter: blur(50px);
+  will-change: transform;
   border-radius: 50%;
   animation: loadingCircle2 5s linear infinite;
 }
 @keyframes loadingCircle2 {
   100% {
     transform: translate(calc(100% - 2px), -50%) rotate(360deg);
-  }
-}
-@keyframes character-bob {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) translateY(0px);
-  }
-  50% {
-    transform: translate(-50%, -50%) translateY(-12px);
-  }
-}
-@keyframes character-bow {
-  0%,
-  100% {
-    transform: rotate(0deg) translateY(0px);
-  }
-  30% {
-    transform: rotate(-1deg) translateY(0px);
-  }
-  50% {
-    transform: rotate(7deg) translateY(10px);
-  }
-  70% {
-    transform: rotate(-1deg) translateY(0px);
-  }
-}
-@keyframes character-shadow {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.55;
-  }
-  50% {
-    transform: scale(0.82);
-    opacity: 0.35;
   }
 }
 .landing-intro {
@@ -159,6 +149,22 @@
   line-height: 28px;
   font-weight: 500;
   font-family: "Geist", sans-serif;
+}
+
+.landing-intro h2 .landing-si {
+  font-weight: 500;
+}
+
+/* Quiet line explaining the greeting (desktop only) */
+.landing-greeting-note {
+  display: none;
+  max-width: 260px;
+  margin: 18px 0 0;
+  padding-left: 12px;
+  border-left: 1px solid rgba(194, 164, 255, 0.5);
+  font-size: 13px;
+  line-height: 1.5;
+  color: #8f8a96;
 }
 
 /* .landing-intro h1 span {
@@ -284,6 +290,9 @@ h2.landing-info-h2 {
   }
 }
 @media screen and (min-width: 1025px) {
+  .landing-greeting-note {
+    display: block;
+  }
   .landing-character {
     width: min(24vw, 420px);
     top: 52%;

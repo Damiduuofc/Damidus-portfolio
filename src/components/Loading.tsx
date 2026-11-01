@@ -71,7 +71,7 @@ const Loading = ({ percent }: { percent: number }) => {
         <div className="loading-marquee">
           <Marquee>
             <span> A Creative Developer</span> <span>A Creative Designer</span>
-            <span> A Creative Developer</span> <span>A Creative Designer</span>
+            <span>A Creative Designer</span> <span>A Creative Developer</span>
           </Marquee>
         </div>
         <div
@@ -89,7 +89,9 @@ const Loading = ({ percent }: { percent: number }) => {
               <div className="loading-box"></div>
             </div>
             <div className="loading-content2">
-              <span>Welcome</span>
+              <span lang="si" aria-label="Ayubowan">
+                ආයුබෝවන්
+              </span>
             </div>
           </div>
         </div>
@@ -100,39 +102,3 @@ const Loading = ({ percent }: { percent: number }) => {
 
 export default Loading;
 
-export const setProgress = (setLoading: (value: number) => void) => {
-  let percent: number = 0;
-
-  // 1% every 20ms = 100 steps * 20ms = 2000ms (Exactly 2 seconds)
-  let interval = setInterval(() => {
-    if (percent < 100) {
-      percent += 1;
-      setLoading(percent);
-    } else {
-      clearInterval(interval);
-    }
-  }, 20);
-
-  function clear() {
-    clearInterval(interval);
-    setLoading(100);
-  }
-
-  function loaded() {
-    return new Promise<number>((resolve) => {
-      clearInterval(interval); 
-      // If loaded() is called early, fast-forward the rest of the bar rapidly
-      interval = setInterval(() => {
-        if (percent < 100) {
-          percent++;
-          setLoading(percent);
-        } else {
-          resolve(percent);
-          clearInterval(interval);
-        }
-      }, 2);
-    });
-  }
-
-  return { loaded, percent, clear };
-};

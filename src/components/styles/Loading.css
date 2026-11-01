@@ -121,6 +121,12 @@
   opacity: 0;
   transition: 0.5s;
 }
+/* Sinhala greeting: Noto's taller vowel signs sit low in the pill otherwise */
+.loading-content2 span:lang(si) {
+  font-size: 1.15em;
+  line-height: 1;
+  transform: translateY(-0.12em);
+}
 
 .loading-content span {
   font-weight: 300;
