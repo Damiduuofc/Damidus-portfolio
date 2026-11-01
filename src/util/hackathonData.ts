@@ -40,7 +40,7 @@ export const hackathonData: HackathonItem[] = [
       {
         src: "/images/hackathons/cre8x-award.jpg",
         alt: "Receiving the finalist recognition on stage at Cre8X 3.0",
-        caption: "",
+        caption: "The Cre8X 3.0",
       },
       {
         src: "/images/hackathons/cre8x-finalists.jpg",
