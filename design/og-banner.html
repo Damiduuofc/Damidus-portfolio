@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8">
+<!-- Social share banner (1200×630). Re-render to public/og-image.jpg after editing:
+     "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser" --headless=new --hide-scrollbars \
+       --force-device-scale-factor=1 --virtual-time-budget=8000 --window-size=1200,630 \
+       --screenshot=og.png "file://$PWD/design/og-banner.html"
+     sips -s format jpeg -s formatOptions 85 og.png --out public/og-image.jpg -->
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;box-sizing:border-box}
+html,body{width:1200px;height:630px;overflow:hidden}
+body{background:#0b080c;font-family:Geist,sans-serif;color:#eae5ec;position:relative}
+.glow{position:absolute;width:520px;height:520px;border-radius:50%;background:#fb8dff;box-shadow:inset -80px 60px 80px rgba(84,0,255,.6);filter:blur(110px);opacity:.55}
+.g1{left:-260px;top:-260px}.g2{right:-200px;bottom:-300px;opacity:.4}
+.logo{position:absolute;left:72px;top:60px;font-size:30px;font-weight:600}.logo b{color:#c2a4ff;font-weight:600}
+.text{position:absolute;left:72px;top:170px;width:700px}
+.hi{color:#c2a4ff;font-size:26px;font-weight:300;letter-spacing:1px}
+h1{font-size:84px;line-height:.98;font-weight:500;letter-spacing:-2px;margin:14px 0 26px}
+.role{font-size:28px;font-weight:400;color:#fff}
+.role span{color:#c2a4ff}
+.tags{display:flex;gap:10px;margin-top:34px;flex-wrap:wrap}
+.tags div{border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:7px 15px;font-size:16px;color:#bdb6c6}
+.url{position:absolute;left:72px;bottom:52px;font-size:20px;color:#8f8a96}
+img{position:absolute;right:110px;bottom:-30px;height:600px;filter:drop-shadow(0 20px 30px rgba(0,0,0,.5))}
+</style></head><body>
+<div class="glow g1"></div><div class="glow g2"></div>
+<div class="logo">&lt;D<b>A/&gt;</b></div>
+<div class="text">
+<div class="hi">Hello! I'm</div>
+<h1>Damidu<br>Abeysinghe</h1>
+<div class="role">Full-Stack Developer <span>&amp;</span> Project Manager</div>
+<div class="tags"><div>React · Next.js · Node.js</div><div>Information Systems Undergraduate</div><div>Researcher</div>
+</div>
+
+</div>
+<div class="url">damidus-portfolio.vercel.app</div>
+<img src="../public/images/character.png">
+</body></html>
