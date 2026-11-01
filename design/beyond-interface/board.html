@@ -1,0 +1,44 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;box-sizing:border-box}
+body{width:1400px;height:900px;font-family:Geist,sans-serif;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;background:#000}
+.cell{display:flex;align-items:center;justify-content:center;gap:28px;position:relative}
+.label{position:absolute;left:24px;top:20px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;opacity:.5}
+.dark{background:#0b080c;color:#eae5ec}
+.light{background:#f4f1f6;color:#140f1a}
+.lockup{display:flex;align-items:center;gap:22px}
+.word{font-size:58px;line-height:.95;letter-spacing:-1.5px}
+.word .b{font-weight:300;display:block}
+.word .i{font-weight:600;display:block}
+.inline .word{font-size:46px}
+.inline .word .b,.inline .word .i{display:inline}
+.light svg .frame{stroke:#140f1a}
+.light svg .cursor{fill:#8a5cf6;stroke:#8a5cf6}
+.icons{gap:36px;align-items:flex-end}
+.app{width:150px;height:150px;border-radius:34px;background:#c2a4ff;display:grid;place-items:center}
+.app svg .frame{stroke:#140f1a}.app svg .cursor{fill:#fff;stroke:#fff}
+.sizes{display:flex;gap:26px;align-items:flex-end}
+</style></head><body>
+<template id="m"><svg viewBox="0 0 64 64" fill="none">
+  <defs>
+    <!-- Knock the frame out around the cursor so it reads as crossing the edge -->
+    <mask id="bi-cut">
+      <rect width="64" height="64" fill="#fff"/>
+      <path d="M29 24L29 56L37.6 48L43.3 60.6L49.6 57.7L43.9 45.1L55.4 45.1Z" fill="#000" stroke="#000" stroke-width="7" stroke-linejoin="round"/>
+    </mask>
+  </defs>
+  <!-- The interface -->
+  <rect x="6" y="6" width="42" height="42" rx="10" class="frame" stroke="#EAE5EC" stroke-width="5" mask="url(#bi-cut)"/>
+  <!-- The cursor, reaching beyond it -->
+  <path d="M29 24L29 56L37.6 48L43.3 60.6L49.6 57.7L43.9 45.1L55.4 45.1Z" class="cursor" fill="#C2A4FF" stroke="#C2A4FF" stroke-width="2" stroke-linejoin="round"/>
+</svg></template>
+<div class="cell dark"><span class="label">Primary — dark</span><div class="lockup"><i data-m="120"></i><div class="word"><span class="b">Beyond</span><span class="i">Interface</span></div></div></div>
+<div class="cell light"><span class="label">Primary — light</span><div class="lockup"><i data-m="120"></i><div class="word"><span class="b">Beyond</span><span class="i">Interface</span></div></div></div>
+<div class="cell dark"><span class="label">Horizontal</span><div class="lockup inline"><i data-m="64"></i><div class="word"><span class="b">Beyond </span><span class="i">Interface</span></div></div></div>
+<div class="cell dark icons"><span class="label">Icon + small sizes</span><div class="app"><i data-m="96"></i></div><div class="sizes"><i data-m="48"></i><i data-m="32"></i><i data-m="16"></i></div></div>
+<script>
+const t=document.getElementById('m').innerHTML;
+document.querySelectorAll('i[data-m]').forEach(i=>{i.outerHTML=t.replace('<svg','<svg width="'+i.dataset.m+'" height="'+i.dataset.m+'"')});
+</script>
+</body></html>

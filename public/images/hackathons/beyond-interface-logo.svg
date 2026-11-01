@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <!-- Knock the frame out around the cursor so it reads as crossing the edge -->
+    <mask id="bi-cut">
+      <rect width="64" height="64" fill="#fff"/>
+      <path d="M29 24L29 56L37.6 48L43.3 60.6L49.6 57.7L43.9 45.1L55.4 45.1Z" fill="#000" stroke="#000" stroke-width="7" stroke-linejoin="round"/>
+    </mask>
+  </defs>
+  <!-- The interface -->
+  <rect x="6" y="6" width="42" height="42" rx="10" stroke="#EAE5EC" stroke-width="5" mask="url(#bi-cut)"/>
+  <!-- The cursor, reaching beyond it -->
+  <path d="M29 24L29 56L37.6 48L43.3 60.6L49.6 57.7L43.9 45.1L55.4 45.1Z" fill="#C2A4FF" stroke="#C2A4FF" stroke-width="2" stroke-linejoin="round"/>
+</svg>

@@ -4,13 +4,6 @@ import "./styles/Hackathons.css";
 import PhotoViewer from "./PhotoViewer";
 import { hackathonData, HackathonPhoto } from "../util/hackathonData";
 
-const initials = (name: string) =>
-  name
-    .split(" ")
-    .map((part) => part[0])
-    .join("")
-    .slice(0, 2);
-
 type Viewer = { photos: HackathonPhoto[]; index: number } | null;
 
 const Hackathons = () => {
@@ -45,11 +38,15 @@ const Hackathons = () => {
               <p className="hack-description" data-reveal="up">{item.description}</p>
 
               <div className="hack-team" data-reveal="up">
-                <div className="hack-avatars" aria-hidden="true">
-                  {["Damidu Abeysinghe", ...item.teammates].map((name) => (
-                    <span key={name}>{initials(name)}</span>
-                  ))}
-                </div>
+                {item.teamLogo && (
+                  <img
+                    className="hack-team-logo"
+                    src={item.teamLogo}
+                    alt={`${item.teamName} logo`}
+                    width={44}
+                    height={44}
+                  />
+                )}
                 <p>
                   <strong>Team {item.teamName}</strong>
                   <br />

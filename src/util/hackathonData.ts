@@ -12,6 +12,7 @@ export interface HackathonItem {
   year: string;
   result: string;
   teamName: string;
+  teamLogo?: string;
   teammates: string[];
   description: string;
   tags: string[];
@@ -27,6 +28,7 @@ export const hackathonData: HackathonItem[] = [
     year: "2026",
     result: "Finalist · Top 10",
     teamName: "Beyond Interface",
+    teamLogo: "/images/hackathons/beyond-interface-logo.svg",
     teammates: ["Dunya Ellegoda", "Sanduni Perera", "Harindu Hansana"],
     description:
       "Competed as team Beyond Interface against universities across Sri Lanka and reached the Grand Finale, placing among the Top 10 teams. Recognised for creativity, innovative design thinking, and dedication throughout the Cre8X 3.0 journey.",
