@@ -34,7 +34,14 @@ export function initialFX() {
     0.1
   )
     .fromTo(
-      [".landing-info h3", ".landing-intro h2", ".landing-intro h1", ".landing-greeting-note"],
+      [
+        ".landing-status",
+        ".landing-info h3",
+        ".landing-intro h2",
+        ".landing-intro h1",
+        ".landing-greeting-note",
+        ".landing-cta",
+      ],
       { opacity: 0, y: 80, filter: "blur(5px)" },
       { opacity: 1, y: 0, filter: "blur(0px)", stagger: 0.2 },
       0.3

@@ -1,5 +1,6 @@
 import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import { LoadingProvider } from "./context/LoadingProvider";
 import Cursor from "./components/Cursor";
 import Navbar from "./components/Navbar";
@@ -13,6 +14,7 @@ import Hackathons from "./components/Hackathons";
 import ProjectsPage from "./components/ProjectsPage";
 //import Career from "./components/Career";
 import Contact from "./components/Contact";
+import NotFound from "./components/NotFound";
 import { usePageMeta } from "./hooks/usePageMeta";
 
 const HomePage = () => {
@@ -56,9 +58,11 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
       </div>
+      <Analytics />
     </LoadingProvider>
   );
 };

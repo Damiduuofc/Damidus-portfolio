@@ -2,10 +2,15 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
+import { MdArrowDownward, MdOutlineFileDownload } from "react-icons/md";
 import { useLoading } from "../context/LoadingProvider";
 import "./styles/Landing.css";
 
 const HOLD = 3; // seconds each word stays on screen
+
+// Shown as the pill above the greeting; set to "" to hide it
+const AVAILABILITY = "Open to internships";
 
 // Rolls two stacked words through a masked slot: out the top, in from below.
 // yPercent keeps the travel equal to the word's own height at every font size.
@@ -94,6 +99,13 @@ function animateCharacter() {
   );
 }
 
+const scrollToWork = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  e.preventDefault();
+  const smoother = ScrollSmoother.get();
+  if (smoother) smoother.scrollTo("#work", true, "top top");
+  else document.querySelector("#work")?.scrollIntoView({ behavior: "smooth" });
+};
+
 const Landing = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { isLoading } = useLoading();
@@ -115,6 +127,12 @@ const Landing = () => {
       <div className="landing-section" id="landingDiv">
         <div className="landing-container" ref={containerRef}>
           <div className="landing-intro">
+            {AVAILABILITY && (
+              <p className="landing-status">
+                <span className="landing-status-dot" aria-hidden="true" />
+                {AVAILABILITY}
+              </p>
+            )}
             <h2>
               <span lang="si" className="landing-si">
                 ආයුබෝවන්
@@ -129,6 +147,19 @@ const Landing = () => {
             <p className="landing-greeting-note">
               Ayubowan is the Sri Lankan greeting — “may you live long”
             </p>
+            <div className="landing-cta">
+              <a href="#work" className="landing-cta-primary" onClick={scrollToWork} data-cursor="disable">
+                View my work <MdArrowDownward />
+              </a>
+              <a
+                href="/Damidu_Abeysinghe.pdf"
+                download="Damidu_Abeysinghe_Resume.pdf"
+                className="landing-cta-secondary"
+                data-cursor="disable"
+              >
+                Download CV <MdOutlineFileDownload />
+              </a>
+            </div>
           </div>
           <div className="landing-info">
             <h3>A Creative</h3>
