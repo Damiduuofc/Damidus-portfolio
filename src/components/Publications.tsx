@@ -29,7 +29,7 @@ const Publications = () => {
 
   return (
     <section className="publications-section section-container" id="publications">
-      <header className="pub-header">
+      <header className="pub-header" data-reveal="children">
         <h2>
           Research <span>& Publications</span>
         </h2>
@@ -46,7 +46,7 @@ const Publications = () => {
 
           return (
             <li key={pub.id} className="pub-item">
-              <aside className="pub-aside">
+              <aside className="pub-aside" data-reveal="up">
                 <span className="pub-index">{String(index + 1).padStart(2, "0")}</span>
                 <span className="pub-year">{year}</span>
                 <span className="pub-kind">{pub.status}</span>
@@ -55,9 +55,9 @@ const Publications = () => {
               </aside>
 
               <div className="pub-body">
-                <h3 className="pub-title">{pub.title}</h3>
+                <h3 className="pub-title" data-reveal="up">{pub.title}</h3>
 
-                <p className="pub-authors">
+                <p className="pub-authors" data-reveal="up">
                   {pub.authors.map((author, idx) => (
                     <span key={author.name}>
                       <span className={author.isMainAuthor ? "pub-author-me" : undefined}>
@@ -68,13 +68,13 @@ const Publications = () => {
                   ))}
                 </p>
 
-                <p className="pub-venue">
+                <p className="pub-venue" data-reveal="up">
                   {pub.conferenceName} · {pub.publicationDate}
                   <br />
                   {pub.institution}, {pub.country}
                 </p>
 
-                <p className="pub-overview">{pub.overview}</p>
+                <p className="pub-overview" data-reveal="up">{pub.overview}</p>
 
                 {pub.photos && (
                   <div className="pub-photos">
@@ -82,7 +82,7 @@ const Publications = () => {
                       <button
                         key={photo.src}
                         type="button"
-                        className="pub-photo"
+                        className="pub-photo" data-reveal="image"
                         onClick={() => setViewer({ photos: pub.photos!, index: photoIndex })}
                         aria-label={`View photo: ${photo.caption}`}
                         data-cursor="disable"
@@ -97,7 +97,7 @@ const Publications = () => {
                   </div>
                 )}
 
-                <dl className="pub-highlights">
+                <dl className="pub-highlights" data-reveal="children">
                   {pub.highlights.map((highlight) => (
                     <div key={highlight.title} className="pub-highlight">
                       {highlight.metric && <dt>{highlight.metric}</dt>}
@@ -109,7 +109,7 @@ const Publications = () => {
                   ))}
                 </dl>
 
-                <div className="pub-actions">
+                <div className="pub-actions" data-reveal="up">
                   <button
                     type="button"
                     className={`pub-action ${isOpen ? "is-open" : ""}`}
@@ -167,7 +167,7 @@ const Publications = () => {
                   </div>
                 </div>
 
-                <ul className="pub-keywords" aria-label="Keywords">
+                <ul className="pub-keywords" data-reveal="up" aria-label="Keywords">
                   {pub.keywords.map((keyword) => (
                     <li key={keyword}>{keyword}</li>
                   ))}

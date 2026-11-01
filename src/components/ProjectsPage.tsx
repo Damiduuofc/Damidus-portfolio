@@ -4,6 +4,7 @@ import WorkImage from "./WorkImage";
 import "./styles/ProjectsPage.css";
 import { Link } from "react-router-dom";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const ProjectsPage = () => {
   usePageMeta(
@@ -11,6 +12,7 @@ const ProjectsPage = () => {
     "Web applications, websites and UI/UX case studies by Damidu Abeysinghe, built with React, Next.js, Node.js, Express and MongoDB.",
     "/projects"
   );
+  useScrollReveal();
 
   // Scrolls to the top of the page when the component mounts
   useEffect(() => {
@@ -20,7 +22,7 @@ const ProjectsPage = () => {
   return (
     <section className="projects-page" id="projects">
       <div className="projects-container section-container">
-        <div className="projects-header mt-5">
+        <div className="projects-header mt-5" data-reveal="up">
           <h1 className="projects-title mt-5">
             All <span>Projects</span>
           </h1>
@@ -29,7 +31,7 @@ const ProjectsPage = () => {
           </Link>
         </div>
 
-        <div className="projects-grid">
+        <div className="projects-grid" data-reveal="children">
           {workData.map((project, index) => (
             <article className="projects-card" key={project.id}>
               <div className="projects-meta">

@@ -17,7 +17,7 @@ const Hackathons = () => {
   const [viewer, setViewer] = useState<Viewer>(null);
   return (
     <section className="hackathons-section section-container" id="hackathons">
-      <header className="hack-header">
+      <header className="hack-header" data-reveal="children">
         <h2>
           Hackathons <span>& Competitions</span>
         </h2>
@@ -30,7 +30,7 @@ const Hackathons = () => {
       <ol className="hack-list">
         {hackathonData.map((item, index) => (
           <li key={item.id} className="hack-item">
-            <aside className="hack-aside">
+            <aside className="hack-aside" data-reveal="up">
               <span className="hack-index">{String(index + 1).padStart(2, "0")}</span>
               <span className="hack-year">{item.year}</span>
               <span className="hack-result">{item.result}</span>
@@ -38,13 +38,13 @@ const Hackathons = () => {
             </aside>
 
             <div className="hack-body">
-              <h3 className="hack-title">{item.event}</h3>
-              <p className="hack-fullname">{item.fullName}</p>
-              <p className="hack-organizer">{item.organizer}</p>
+              <h3 className="hack-title" data-reveal="up">{item.event}</h3>
+              <p className="hack-fullname" data-reveal="up">{item.fullName}</p>
+              <p className="hack-organizer" data-reveal="up">{item.organizer}</p>
 
-              <p className="hack-description">{item.description}</p>
+              <p className="hack-description" data-reveal="up">{item.description}</p>
 
-              <div className="hack-team">
+              <div className="hack-team" data-reveal="up">
                 <div className="hack-avatars" aria-hidden="true">
                   {["Damidu Abeysinghe", ...item.teammates].map((name) => (
                     <span key={name}>{initials(name)}</span>
@@ -57,7 +57,7 @@ const Hackathons = () => {
                 </p>
               </div>
 
-              <ul className="hack-tags" aria-label="Skills">
+              <ul className="hack-tags" data-reveal="up" aria-label="Skills">
                 {item.tags.map((tag) => (
                   <li key={tag}>{tag}</li>
                 ))}
@@ -68,7 +68,7 @@ const Hackathons = () => {
                   <button
                     key={photo.src}
                     type="button"
-                    className="hack-photo"
+                    className="hack-photo" data-reveal="image"
                     onClick={() => setViewer({ photos: item.photos, index: photoIndex })}
                     aria-label={`View photo: ${photo.caption}`}
                     data-cursor="disable"

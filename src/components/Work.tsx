@@ -9,7 +9,7 @@ const Work = () => {
   return (
     <div className="work-section" id="work">
       <div className="work-container section-container">
-        <div className="work-header">
+        <div className="work-header" data-reveal="up">
           <h2>
             My <span>Work</span>
           </h2>
@@ -22,11 +22,11 @@ const Work = () => {
           </Link>
         </div>
 
-        <p className="work-swipe-hint" aria-hidden="true">
+        <p className="work-swipe-hint" data-reveal="up" aria-hidden="true">
           Swipe to explore <span>→</span>
         </p>
 
-        <div className="work-marquee" aria-label="Projects carousel">
+        <div className="work-marquee" data-reveal="up" aria-label="Projects carousel">
           <div className="work-track">
             {loopedWorkData.map((project, index) => (
               <div

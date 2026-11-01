@@ -16,6 +16,7 @@ import ProjectsPage from "./components/ProjectsPage";
 import Contact from "./components/Contact";
 import NotFound from "./components/NotFound";
 import { usePageMeta } from "./hooks/usePageMeta";
+import { useScrollReveal } from "./hooks/useScrollReveal";
 
 const HomePage = () => {
   usePageMeta(
@@ -23,6 +24,7 @@ const HomePage = () => {
     "Portfolio of Damidu Abeysinghe, a Sri Lankan Information Systems undergraduate at KDU building full-stack web apps with React, Next.js, Node.js and MongoDB. Projects, AI research and UI/UX designathon work.",
     "/"
   );
+  useScrollReveal();
 
   return (
     <>
