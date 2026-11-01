@@ -5,7 +5,7 @@ const Contact = () => {
   return (
     <div className="contact-section section-container" id="contact">
       <div className="contact-container">
-        <h3>Contact</h3>
+        <h2 className="contact-title">Contact</h2>
         <div className="contact-flex">
           <div className="contact-box">
             <h4>Email</h4>
@@ -52,9 +52,9 @@ const Contact = () => {
             </a>
           </div>
           <div className="contact-box">
-            <h2>
+            <p className="contact-credit">
               Designed and Developed <br /> by <span>Damidu Abeysinghe</span>
-            </h2>
+            </p>
             <h5>
               <MdCopyright /> 2026 All rights reserved.
             </h5>

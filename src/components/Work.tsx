@@ -15,7 +15,7 @@ const Work = () => {
           </h2>
           <Link
             className="work-cta"
-            to="/Projects"
+            to="/projects"
             data-cursor="disable"
           >
             See All Projects

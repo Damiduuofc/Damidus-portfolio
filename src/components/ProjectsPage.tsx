@@ -3,8 +3,15 @@ import { workData } from "../util/Data";
 import WorkImage from "./WorkImage";
 import "./styles/ProjectsPage.css";
 import { Link } from "react-router-dom";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 const ProjectsPage = () => {
+  usePageMeta(
+    "All Projects | Damidu Abeysinghe",
+    "Web applications, websites and UI/UX case studies by Damidu Abeysinghe, built with React, Next.js, Node.js, Express and MongoDB.",
+    "/projects"
+  );
+
   // Scrolls to the top of the page when the component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -14,9 +21,9 @@ const ProjectsPage = () => {
     <section className="projects-page" id="projects">
       <div className="projects-container section-container">
         <div className="projects-header mt-5">
-          <h2 className="projects-title mt-5">
+          <h1 className="projects-title mt-5">
             All <span>Projects</span>
-          </h2>
+          </h1>
           <Link className="projects-back" to="/#work" data-cursor="disable">
             Back To Work
           </Link>

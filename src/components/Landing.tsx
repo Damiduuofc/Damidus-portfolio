@@ -67,7 +67,7 @@ const Landing = () => {
           </div>
           <div className="landing-character" aria-hidden="true">
             <div className="landing-character-shadow" />
-            <img src="/images/character.png" alt="" />
+            <img src="/images/character.webp" alt="" width={383} height={753} />
           </div>
         </div>
       </div>

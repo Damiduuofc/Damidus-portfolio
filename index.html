@@ -3,26 +3,140 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="/logo.png" />
-    <link rel="preload" href="/images/character.png" as="image">
-<link rel="preload" href="/fonts/Geist.woff2" as="font" type="font/woff2" crossorigin>
+
     <title>Damidu Abeysinghe | Full-Stack Developer & UI/UX Designer</title>
-    <meta name="title" content="Damidu Abeysinghe | Full-Stack Developer & UI/UX Designer" />
-    <meta name="description" content="Information Systems undergraduate specializing in building scalable web applications with React, Next.js, Node.js, and MongoDB. Explore my modern digital experiences and portfolio." />
-    <meta name="keywords" content="Damidu Abeysinghe, Full-Stack Developer, UI/UX Design, React Developer, Next.js, Node.js, MongoDB, Software Engineer Portfolio, Web Application Developer" />
-    <meta name="robots" content="index, follow" />
-    <meta name="language" content="English" />
+    <meta
+      name="description"
+      content="Portfolio of Damidu Abeysinghe, a Sri Lankan Information Systems undergraduate at KDU building full-stack web apps with React, Next.js, Node.js and MongoDB. Projects, AI research and UI/UX designathon work."
+    />
     <meta name="author" content="Damidu Abeysinghe" />
-<meta name="google-site-verification" content="_avv-g0dV09mQihXlRmyVtSh1jeyxl-0ETxLyOiTprE" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://yourwebsite.com" /> <meta property="og:title" content="Damidu Abeysinghe | Full-Stack Developer & UI/UX Designer" />
-    <meta property="og:description" content="Information Systems undergraduate specializing in building scalable web applications with React, Next.js, Node.js, and MongoDB." />
-    <meta property="og:image" content="https://yourwebsite.com/LaptopChad.png" /> <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://yourwebsite.com" /> <meta property="twitter:title" content="Damidu Abeysinghe | Full-Stack Developer & UI/UX Designer" />
-    <meta property="twitter:description" content="Information Systems undergraduate specializing in building scalable web applications with React, Next.js, Node.js, and MongoDB." />
-    <meta property="twitter:image" content="https://yourwebsite.com/LaptopChad.png" /> </head>
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0b080c" />
+    <link rel="canonical" href="https://damidus-portfolio.vercel.app/" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preload" href="/images/character.webp" as="image" type="image/webp" />
+
+    <!-- Open Graph (LinkedIn, Facebook, WhatsApp, Discord) -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Damidu Abeysinghe" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://damidus-portfolio.vercel.app/" />
+    <meta property="og:title" content="Damidu Abeysinghe | Full-Stack Developer & UI/UX Designer" />
+    <meta
+      property="og:description"
+      content="Full-stack web apps with React, Next.js and Node.js, peer-reviewed AI research, and UI/UX designathon work."
+    />
+    <meta property="og:image" content="https://damidus-portfolio.vercel.app/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Damidu Abeysinghe — Full-Stack Developer & UI/UX Designer" />
+    <meta property="profile:first_name" content="Damidu" />
+    <meta property="profile:last_name" content="Abeysinghe" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Damidu Abeysinghe | Full-Stack Developer & UI/UX Designer" />
+    <meta
+      name="twitter:description"
+      content="Full-stack web apps with React, Next.js and Node.js, peer-reviewed AI research, and UI/UX designathon work."
+    />
+    <meta name="twitter:image" content="https://damidus-portfolio.vercel.app/og-image.jpg" />
+    <meta name="twitter:image:alt" content="Damidu Abeysinghe — Full-Stack Developer & UI/UX Designer" />
+
+    <!-- Structured data: who this site is about, for Google's knowledge panel -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://damidus-portfolio.vercel.app/#person",
+            "name": "Damidu Abeysinghe",
+            "alternateName": "D. D. T. Abeysinghe",
+            "url": "https://damidus-portfolio.vercel.app/",
+            "image": "https://damidus-portfolio.vercel.app/og-image.jpg",
+            "jobTitle": "Full-Stack Developer & UI/UX Designer",
+            "email": "mailto:damiduofc@gmail.com",
+            "address": { "@type": "PostalAddress", "addressCountry": "LK" },
+            "alumniOf": {
+              "@type": "CollegeOrUniversity",
+              "name": "General Sir John Kotelawala Defence University"
+            },
+            "knowsAbout": [
+              "Full-stack web development",
+              "React",
+              "Next.js",
+              "Node.js",
+              "MongoDB",
+              "UI/UX design",
+              "Artificial intelligence",
+              "Computer vision"
+            ],
+            "award": "Finalist (Top 10), Cre8X 3.0 National Level Inter-University UI/UX Designathon 2026",
+            "sameAs": [
+              "https://github.com/Damiduuofc",
+              "https://www.linkedin.com/in/damidu-abeysinghe/",
+              "https://www.instagram.com/damiduuofc"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://damidus-portfolio.vercel.app/#website",
+            "url": "https://damidus-portfolio.vercel.app/",
+            "name": "Damidu Abeysinghe",
+            "inLanguage": "en",
+            "about": { "@id": "https://damidus-portfolio.vercel.app/#person" }
+          },
+          {
+            "@type": "ScholarlyArticle",
+            "headline": "Artificial Intelligence-Based Violence and Suspicious Human Behaviour Detection in CCTV Surveillance Systems for Pre-Crime Analysis",
+            "author": [
+              { "@id": "https://damidus-portfolio.vercel.app/#person" },
+              { "@type": "Person", "name": "D. D. Ellegooda" },
+              { "@type": "Person", "name": "W. A. A. M. Waniarachchi" }
+            ],
+            "datePublished": "2026-08-31",
+            "publisher": { "@type": "Organization", "name": "National Police Academy Sri Lanka" },
+            "isPartOf": {
+              "@type": "PublicationEvent",
+              "name": "International Research Conference of National Police Academy Sri Lanka (NPAIRC) 2026"
+            },
+            "keywords": "Pre-Crime Analysis, Multi-Threat Detection, CCTV Surveillance, Systematic Literature Review, Edge Intelligence, Bias Mitigation"
+          }
+        ]
+      }
+    </script>
+  </head>
   <body>
     <div id="root"></div>
+    <!-- Readable summary for crawlers and visitors without JavaScript -->
+    <noscript>
+      <main style="max-width: 720px; margin: 60px auto; padding: 0 20px; color: #eae5ec; font-family: sans-serif">
+        <h1>Damidu Abeysinghe</h1>
+        <p>
+          Full-Stack Developer &amp; UI/UX Designer. Information Systems undergraduate at General Sir
+          John Kotelawala Defence University, Sri Lanka, building web applications with React,
+          Next.js, Node.js and MongoDB.
+        </p>
+        <h2>Research</h2>
+        <p>
+          Artificial Intelligence-Based Violence and Suspicious Human Behaviour Detection in CCTV
+          Surveillance Systems for Pre-Crime Analysis — NPAIRC 2026.
+        </p>
+        <h2>Hackathons</h2>
+        <p>Finalist (Top 10), Cre8X 3.0 National Level Inter-University UI/UX Designathon 2026.</p>
+        <h2>Contact</h2>
+        <p>
+          <a href="mailto:damiduofc@gmail.com">damiduofc@gmail.com</a> ·
+          <a href="https://github.com/Damiduuofc">GitHub</a> ·
+          <a href="https://www.linkedin.com/in/damidu-abeysinghe/">LinkedIn</a>
+        </p>
+      </main>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

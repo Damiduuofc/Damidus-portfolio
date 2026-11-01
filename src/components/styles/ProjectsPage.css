@@ -19,13 +19,13 @@
   flex-wrap: wrap;
 }
 
-.projects-header h2 {
+.projects-header h1 {
   margin: 0;
   font-size: 70px;
   font-weight: 500;
 }
 
-.projects-header h2 > span {
+.projects-header h1 > span {
   color: var(--accentColor);
 }
 
@@ -74,7 +74,7 @@
 }
 
 @media only screen and (max-width: 1400px) {
-  .projects-header h2 {
+  .projects-header h1 {
     font-size: 50px;
   }
 
@@ -96,7 +96,7 @@
 }
 
 @media only screen and (max-height: 650px) {
-  .projects-header h2 {
+  .projects-header h1 {
     font-size: 40px;
   }
 }
@@ -108,7 +108,7 @@
     align-items: center;
     gap: 16px;
   }
-  .projects-header h2 {
+  .projects-header h1 {
     font-size: 40px;
   }
   .projects-back {

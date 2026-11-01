@@ -1,0 +1,8 @@
+{
+  "name": "Damidu Abeysinghe",
+  "short_name": "Damidu",
+  "icons": [{ "src": "/logo-512.png", "sizes": "512x512", "type": "image/png" }],
+  "theme_color": "#0b080c",
+  "background_color": "#0b080c",
+  "display": "browser"
+}

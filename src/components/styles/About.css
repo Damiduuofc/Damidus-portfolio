@@ -44,7 +44,7 @@
   max-width: 600px;
 }
 
-.about-me h3 {
+.about-me h2 {
   font-size: 25px;
   text-transform: uppercase;
   letter-spacing: 7px;
@@ -104,7 +104,7 @@
     flex: none;
     max-width: none;
   }
-  .about-me h3 {
+  .about-me h2 {
     font-size: 14px;
     letter-spacing: 5px;
     margin: 0 0 14px;

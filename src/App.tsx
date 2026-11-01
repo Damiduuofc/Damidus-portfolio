@@ -13,19 +13,28 @@ import Hackathons from "./components/Hackathons";
 import ProjectsPage from "./components/ProjectsPage";
 //import Career from "./components/Career";
 import Contact from "./components/Contact";
+import { usePageMeta } from "./hooks/usePageMeta";
 
-const HomePage = () => (
-  <>
-    <Landing />
-    <About />
-    <WhatIDo />
-    <Work />
-    <Publications />
-    <Hackathons />
-    {/* <Career /> */}
-    <Contact />
-  </>
-);
+const HomePage = () => {
+  usePageMeta(
+    "Damidu Abeysinghe | Full-Stack Developer & UI/UX Designer",
+    "Portfolio of Damidu Abeysinghe, a Sri Lankan Information Systems undergraduate at KDU building full-stack web apps with React, Next.js, Node.js and MongoDB. Projects, AI research and UI/UX designathon work.",
+    "/"
+  );
+
+  return (
+    <>
+      <Landing />
+      <About />
+      <WhatIDo />
+      <Work />
+      <Publications />
+      <Hackathons />
+      {/* <Career /> */}
+      <Contact />
+    </>
+  );
+};
 
 const App = () => {
   const { pathname } = useLocation();
@@ -46,7 +55,7 @@ const App = () => {
         <main id="smooth-content" className="main-body">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/Projects" element={<ProjectsPage />} />
+            <Route path="/projects" element={<ProjectsPage />} />
           </Routes>
         </main>
       </div>
