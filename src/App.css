@@ -26,3 +26,9 @@
     max-width: var(--cWidth);
   }
 }
+
+/* ScrollSmoother sets inline overflow on the content; clip horizontally so
+   off-canvas decorations (e.g. .landing-circle2) can't shift the page sideways */
+#smooth-content {
+  overflow-x: clip !important;
+}

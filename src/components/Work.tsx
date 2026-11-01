@@ -22,10 +22,18 @@ const Work = () => {
           </Link>
         </div>
 
+        <p className="work-swipe-hint" aria-hidden="true">
+          Swipe to explore <span>→</span>
+        </p>
+
         <div className="work-marquee" aria-label="Projects carousel">
           <div className="work-track">
             {loopedWorkData.map((project, index) => (
-              <div className="work-box" key={`${project.id}-${index}`}>
+              <div
+                className={`work-box ${index >= workData.length ? "is-clone" : ""}`}
+                key={`${project.id}-${index}`}
+                aria-hidden={index >= workData.length || undefined}
+              >
                 <div className="work-info">
                   <div className="work-title">
                     <h3>0{(index % workData.length) + 1}</h3>

@@ -198,6 +198,15 @@
   position: absolute;
   top: 0;
 }
+/* Mask the rolling words so they never slide over "A Creative" */
+.landing-info h2 {
+  overflow: hidden;
+}
+/* Hidden until the roll loop takes over (autoAlpha sets visibility inline) */
+.landing-h2-info-1,
+.landing-h2-2 {
+  visibility: hidden;
+}
 h2.landing-info-h2 {
   color: #c481ff;
   font-size: 42px;
@@ -353,7 +362,23 @@ h2.landing-info-h2 {
 }
 @media screen and (max-width: 500px) {
   .landing-character {
-    width: 58vw;
-    top: 60%;
+    width: min(50vw, 210px);
+    top: 57%;
+  }
+  .landing-intro {
+    top: 14%;
+  }
+  .landing-intro h2 {
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+  .landing-intro h1 {
+    margin-top: 6px;
+    font-size: 40px;
+    line-height: 42px;
+    letter-spacing: -0.5px;
+  }
+  .landing-info {
+    bottom: max(48px, 7vh);
   }
 }

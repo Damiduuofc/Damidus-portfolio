@@ -10,8 +10,8 @@ const Contact = () => {
           <div className="contact-box">
             <h4>Email</h4>
             <p>
-              <a href="mailto:damiduofc@mail.com" data-cursor="disable">
-                damiduofc@mail.com
+              <a href="mailto:damiduofc@gmail.com" data-cursor="disable">
+                damiduofc@gmail.com
               </a>
             </p>
             <h4>Phone</h4>
@@ -24,8 +24,9 @@ const Contact = () => {
           <div className="contact-box">
             <h4>Social</h4>
             <a
-              href="https://github.com"
+              href="https://github.com/Damiduuofc"
               target="_blank"
+              rel="noreferrer"
               data-cursor="disable"
               className="contact-social"
             >
@@ -34,6 +35,7 @@ const Contact = () => {
             <a
               href="https://www.linkedin.com/in/damidu-abeysinghe/"
               target="_blank"
+              rel="noreferrer"
               data-cursor="disable"
               className="contact-social"
             >
@@ -42,6 +44,7 @@ const Contact = () => {
             <a
               href="https://www.instagram.com/damiduuofc"
               target="_blank"
+              rel="noreferrer"
               data-cursor="disable"
               className="contact-social"
             >

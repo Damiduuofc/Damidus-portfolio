@@ -3,7 +3,6 @@ import { workData } from "../util/Data";
 import WorkImage from "./WorkImage";
 import "./styles/ProjectsPage.css";
 import { Link } from "react-router-dom";
-import Navbar from "./Navbar";
 
 const ProjectsPage = () => {
   // Scrolls to the top of the page when the component mounts
@@ -14,7 +13,6 @@ const ProjectsPage = () => {
   return (
     <section className="projects-page" id="projects">
       <div className="projects-container section-container">
-        <Navbar />
         <div className="projects-header mt-5">
           <h2 className="projects-title mt-5">
             All <span>Projects</span>

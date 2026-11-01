@@ -27,6 +27,10 @@
   margin-bottom: 20px;
 }
 a.contact-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   font-size: 25px;
   border-bottom: 1px solid #ccc;
 }
@@ -88,5 +92,38 @@ a.contact-social {
   }
   .contact-container {
     width: calc(100% - 25px);
+  }
+}
+@media only screen and (max-width: 767px) {
+  .contact-section {
+    padding-bottom: 40px;
+  }
+  .contact-container {
+    width: 100%;
+  }
+  .contact-section h3 {
+    font-size: 44px;
+    margin-bottom: 8px;
+  }
+  .contact-flex {
+    gap: 36px;
+  }
+  .contact-flex p {
+    margin-top: 6px;
+    font-size: 17px;
+  }
+  a.contact-social {
+    font-size: 20px;
+    padding: 12px 0;
+    border-bottom-color: rgba(255, 255, 255, 0.14);
+  }
+  .contact-box h2 {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .contact-box h5 {
+    font-size: 13px;
+    align-items: center;
+    gap: 6px;
   }
 }

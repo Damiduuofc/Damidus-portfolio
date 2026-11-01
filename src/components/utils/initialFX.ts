@@ -40,7 +40,7 @@ export function initialFX() {
       0.3
     )
     .fromTo(
-      ".landing-h2-info",
+      ".landing-info-words",
       { opacity: 0, y: 80, filter: "blur(5px)" },
       { opacity: 1, y: 0, filter: "blur(0px)" },
       0.5
@@ -57,16 +57,4 @@ export function initialFX() {
       1.0
     );
 
-  // Initialize infinite loops
-  loopText(".landing-h2-info", ".landing-h2-info-1");
-  loopText(".landing-h2-1", ".landing-h2-2");
-}
-
-function loopText(first: string, second: string) {
-  // Timeline defaults drastically clean up repetitive configurations
-  gsap.timeline({ repeat: -1, defaults: { duration: 0.8 } })
-    .to(first, { y: -40, opacity: 0, delay: 4 })
-    .fromTo(second, { y: 40, opacity: 0 }, { y: 0, opacity: 1 })
-    .to(second, { y: -40, opacity: 0, delay: 4 })
-    .fromTo(first, { y: 40, opacity: 0 }, { y: 0, opacity: 1 });
 }

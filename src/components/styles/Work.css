@@ -263,3 +263,114 @@
     animation-duration: 52s;
   }
 }
+.work-swipe-hint {
+  display: none;
+}
+
+/* Phones: swipeable, snapping card carousel instead of the auto marquee */
+@media only screen and (max-width: 767px) {
+  .work-section,
+  .work-container {
+    min-height: auto;
+  }
+  .work-container {
+    padding: 90px 0 40px;
+    gap: 22px;
+    overflow: visible;
+  }
+  .work-section h2 {
+    font-size: 44px;
+  }
+  .work-header {
+    align-items: center;
+    gap: 16px;
+  }
+  .work-cta {
+    padding: 11px 20px;
+    font-size: 12px;
+  }
+  .work-swipe-hint {
+    display: block;
+    margin: 0 0 -8px;
+    font-size: 13px;
+    color: #8f8a96;
+  }
+  .work-swipe-hint span {
+    display: inline-block;
+    color: var(--accentColor);
+    animation: work-hint 1.6s ease-in-out infinite;
+  }
+  .work-marquee {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding: 0 0 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .work-marquee::-webkit-scrollbar {
+    display: none;
+  }
+  .work-marquee::before,
+  .work-marquee::after,
+  .work-track::before,
+  .work-track::after {
+    display: none;
+  }
+  .work-track {
+    gap: 14px;
+    animation: none;
+  }
+  .work-box,
+  .work-track .work-box:nth-child(even) {
+    width: 82vw;
+    max-width: 340px;
+    padding: 20px;
+    gap: 20px;
+    flex-direction: column;
+    border: 1px solid #2c2a2e;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    scroll-snap-align: start;
+  }
+  .work-track .work-box:last-child {
+    border-right: 1px solid #2c2a2e;
+  }
+  .work-box.is-clone {
+    display: none;
+  }
+  .work-title {
+    margin-bottom: 14px;
+    gap: 12px;
+  }
+  .work-title h3 {
+    font-size: 30px;
+    line-height: 30px;
+  }
+  .work-info h4 {
+    font-size: 15px;
+  }
+  .work-info p {
+    font-size: 13px;
+  }
+  .work-image img {
+    border-radius: 10px;
+    max-height: 200px;
+  }
+  /* No hover on touch: keep the link affordance visible */
+  .work-link {
+    opacity: 1;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+}
+@keyframes work-hint {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}

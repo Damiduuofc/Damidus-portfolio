@@ -1,11 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HoverLinks from "./HoverLinks";
 import { gsap } from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
+import { FaGithub, FaInstagram, FaLinkedinIn } from "react-icons/fa6";
 import "./styles/Navbar.css";
+
+const navLinks = [
+  { href: "#about", label: "About" },
+  { href: "#work", label: "Work" },
+  { href: "#publications", label: "Publications" },
+  { href: "#hackathons", label: "Hackathons" },
+  { href: "#contact", label: "Contact" },
+];
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 export let smoother: ScrollSmoother;
@@ -13,6 +22,20 @@ export let smoother: ScrollSmoother;
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Freeze page scroll behind the mobile menu; Escape closes it
+  useEffect(() => {
+    const activeSmoother = ScrollSmoother.get();
+    if (!menuOpen) return;
+    activeSmoother?.paused(true);
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      activeSmoother?.paused(false);
+    };
+  }, [menuOpen]);
 
   useGSAP(() => {
     let activeSmoother = ScrollSmoother.get();
@@ -84,6 +107,7 @@ const Navbar = () => {
     targetSelector: string
   ) => {
     e.preventDefault();
+    setMenuOpen(false);
 
     if (location.pathname !== "/") {
       navigate(`/${targetSelector}`);
@@ -100,6 +124,7 @@ const Navbar = () => {
 
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    setMenuOpen(false);
 
     if (location.pathname !== "/") {
       navigate("/");
@@ -139,52 +164,85 @@ const Navbar = () => {
         </a>
 
         <a
-          href="mailto:damiduofc@mail.com"
+          href="mailto:damiduofc@gmail.com"
           className="navbar-connect"
           data-cursor="disable"
         >
-          damiduofc@mail.com
+          damiduofc@gmail.com
         </a>
 
-        <ul>
-          <li>
-            <a
-              data-href="#about"
-              href="#about"
-              onClick={(e) => handleNavClick(e, "#about")}
-            >
-              <HoverLinks text="ABOUT" />
-            </a>
-          </li>
-          <li>
-            <a
-              data-href="#work"
-              href="#work"
-              onClick={(e) => handleNavClick(e, "#work")}
-            >
-              <HoverLinks text="WORK" />
-            </a>
-          </li>
-          <li>
-            <a
-              data-href="#publications"
-              href="#publications"
-              onClick={(e) => handleNavClick(e, "#publications")}
-            >
-              <HoverLinks text="PUBLICATIONS" />
-            </a>
-          </li>
-          <li>
-            <a
-              data-href="#contact"
-              href="#contact"
-              onClick={(e) => handleNavClick(e, "#contact")}
-            >
-              <HoverLinks text="CONTACT" />
-            </a>
-          </li>
+        <ul className="nav-links">
+          {navLinks.map((link) => (
+            <li key={link.href}>
+              <a
+                data-href={link.href}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+              >
+                <HoverLinks text={link.label.toUpperCase()} />
+              </a>
+            </li>
+          ))}
         </ul>
+
+        <button
+          type="button"
+          className={`nav-toggle ${menuOpen ? "is-open" : ""}`}
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+        >
+          <span />
+          <span />
+        </button>
       </header>
+
+      {/* Lives outside .header: its transform would trap a fixed overlay */}
+      <nav
+        id="mobile-menu"
+        className={`mobile-menu ${menuOpen ? "is-open" : ""}`}
+        aria-label="Mobile"
+      >
+        <ol className="mobile-menu-links">
+          {navLinks.map((link, index) => (
+            <li key={link.href} style={{ transitionDelay: menuOpen ? `${0.08 + index * 0.05}s` : "0s" }}>
+              <a href={link.href} onClick={(e) => handleNavClick(e, link.href)}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ol>
+
+        <div className="mobile-menu-footer">
+          <a href="mailto:damiduofc@gmail.com">damiduofc@gmail.com</a>
+          <a href="/Damidu_Abeysinghe.pdf" download="Damidu_Abeysinghe_Resume.pdf">
+            Download résumé
+          </a>
+          <div className="mobile-menu-social">
+            <a href="https://github.com/Damiduuofc" target="_blank" rel="noreferrer" aria-label="GitHub">
+              <FaGithub />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/damidu-abeysinghe/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+            >
+              <FaLinkedinIn />
+            </a>
+            <a
+              href="https://www.instagram.com/damiduuofc"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram"
+            >
+              <FaInstagram />
+            </a>
+          </div>
+        </div>
+      </nav>
 
       <div className="landing-circle1"></div>
       <div className="landing-circle2"></div>
