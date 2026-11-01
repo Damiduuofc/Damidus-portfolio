@@ -1,6 +1,7 @@
 import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { LoadingProvider } from "./context/LoadingProvider";
 import Cursor from "./components/Cursor";
 import Navbar from "./components/Navbar";
@@ -63,6 +64,7 @@ const App = () => {
         </main>
       </div>
       <Analytics />
+      <SpeedInsights />
     </LoadingProvider>
   );
 };
