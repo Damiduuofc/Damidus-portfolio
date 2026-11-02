@@ -1,0 +1,169 @@
+/* Shares the editorial header of the Publications section */
+.volunteering-section {
+  --volMuted: #8f8a96;
+  --volCardW: 240px;
+  --volCardH: 150px;
+  --volLogoW: 170px;
+  --volLogoH: 68px;
+  --volGap: 24px;
+  position: relative;
+  margin: auto;
+  padding: 120px 0 60px;
+  box-sizing: border-box;
+  z-index: 5;
+}
+
+.vol-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+.vol-header h2 {
+  font-size: 70px;
+  font-weight: 500;
+  line-height: 1.05;
+  margin: 0;
+}
+.vol-header h2 > span {
+  color: var(--accentColor);
+}
+.vol-header p {
+  max-width: 380px;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--volMuted);
+}
+
+/* Logo strip: right-to-left loop, edges fade into the page */
+.vol-marquee {
+  overflow: hidden;
+  padding: 10px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.vol-track {
+  display: flex;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* Moved by Volunteering.tsx in whole-pixel steps */
+  will-change: transform;
+}
+
+/* Spacing lives on each item (not flex gap) so -50% lands exactly on a lap */
+.vol-item {
+  flex: none;
+  padding-right: var(--volGap);
+}
+
+.vol-card {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--volCardW);
+  height: var(--volCardH);
+  padding: 22px 28px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  overflow: hidden;
+  outline: none;
+}
+.vol-card img {
+  max-width: var(--volLogoW);
+  max-height: var(--volLogoH);
+  object-fit: contain;
+  user-select: none;
+  transition: opacity 0.4s ease;
+}
+.vol-card img.vol-logo-badge {
+  max-height: calc(var(--volLogoH) * 1.35);
+}
+
+/* Hover / keyboard focus: details panel rises over the logo */
+.vol-details {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 22px;
+  background: rgba(16, 11, 20, 0.94);
+  border: 1px solid var(--accentColor);
+  border-radius: inherit;
+  color: var(--textColor);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.vol-details h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--accentColor);
+}
+.vol-details ul {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.vol-details li {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.vol-role {
+  font-size: 13px;
+  line-height: 1.3;
+}
+.vol-period {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--volMuted);
+}
+
+/* No lift on hover: moving the hovered card let the cursor slip off its edge and
+   re-enter, so the card bounced in place */
+.vol-card:hover img,
+.vol-card:focus-visible img {
+  opacity: 0.12;
+}
+.vol-card:hover .vol-details,
+.vol-card:focus-visible .vol-details {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media only screen and (max-width: 1400px) {
+  .vol-header h2 {
+    font-size: 56px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .volunteering-section {
+    --volCardW: 210px;
+    --volCardH: 150px;
+    --volLogoW: 140px;
+    --volLogoH: 56px;
+    --volGap: 16px;
+    padding: 90px 0 40px;
+  }
+  .vol-header {
+    margin-bottom: 40px;
+  }
+  .vol-header h2 {
+    font-size: 42px;
+  }
+}

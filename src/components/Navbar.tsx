@@ -10,6 +10,7 @@ import "./styles/Navbar.css";
 
 const navLinks = [
   { href: "#about", label: "About" },
+  { href: "#volunteering", label: "Volunteering" },
   { href: "#work", label: "Work" },
   { href: "#publications", label: "Publications" },
   { href: "#hackathons", label: "Hackathons" },

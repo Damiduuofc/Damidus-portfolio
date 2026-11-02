@@ -11,6 +11,7 @@ import WhatIDo from "./components/WhatIDo";
 import Work from "./components/Work";
 import Publications from "./components/Publications";
 import Hackathons from "./components/Hackathons";
+import Volunteering from "./components/Volunteering";
 import ProjectsPage from "./components/ProjectsPage";
 //import Career from "./components/Career";
 import Contact from "./components/Contact";
@@ -30,6 +31,7 @@ const HomePage = () => {
     <>
       <Landing />
       <About />
+      <Volunteering />
       <WhatIDo />
       <Work />
       <Publications />
