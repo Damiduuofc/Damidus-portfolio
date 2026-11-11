@@ -1,117 +1,429 @@
 .about-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  --aboutMuted: #8f8a96;
+  --aboutLine: rgba(234, 229, 236, 0.1);
   position: relative;
   width: var(--cWidth);
   max-width: 1920px;
   margin: auto;
-  min-height: var(--vh, 80vh);
-  padding: 2rem 0;
+  padding: 140px 0 80px;
+  box-sizing: border-box;
+  z-index: 5;
 }
 
-/* Parent wrapper - Now forced to ALWAYS be side-by-side */
-.about-container {
+/* Soft accent glow behind the section, parallaxed by GSAP */
+.about-glow {
+  position: absolute;
+  top: 10%;
+  right: -10%;
+  width: 60vw;
+  max-width: 900px;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(194, 164, 255, 0.16), transparent 62%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Eyebrow */
+.about-eyebrow {
   display: flex;
-  flex-direction: row; /* Forces photo left, text right on ALL screens */
   align-items: center;
-  justify-content: flex-start; /* Aligns everything to the left edge */
-  gap: 3rem;
-  width: 100%;
-  /* Remove padding here if you want the photo touching the absolute edge of the screen */
-  padding: 0 15px; 
-}
-
-/* Image container (Left Side) */
-.about-image-container {
-  flex: 1.5; /* Gives the image container more space to grow */
-  display: flex;
-  justify-content: flex-start; /* Pushes the image to the far left edge */
-}
-
-.about-image {
-  width: 100%;
-  max-width: 700px; /* INCREASED: Makes the image much larger */
-  height: auto;
-  border-radius: 12px;
-  object-fit: cover;
-}
-
-/* Text container (Right Side) */
-.about-me {
-  flex: 1; /* Text takes up the remaining space on the right */
-  text-align: left;
-  max-width: 600px;
-}
-
-.about-me h2 {
-  font-size: 25px;
+  gap: 12px;
+  font-size: 13px;
+  letter-spacing: 4px;
   text-transform: uppercase;
-  letter-spacing: 7px;
-  font-weight: 400;
+  color: var(--aboutMuted);
+  margin-bottom: 36px;
+}
+.about-eyebrow span:not(.about-eyebrow-line) {
   color: var(--accentColor);
 }
+.about-eyebrow span.about-eyebrow-label {
+  color: var(--aboutMuted);
+}
+.about-eyebrow-line {
+  width: 48px;
+  height: 1px;
+  background: var(--accentColor);
+}
 
-.about-me p {
-  font-size: 1.1rem; 
+/* Headline: same type voice as the other section headers */
+.about-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin: 0 0 100px;
+}
+.about-headline {
+  font-size: clamp(44px, 6.4vw, 104px);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+.about-line {
+  display: block;
+  overflow: hidden;
+  /* room for descenders inside the mask */
+  padding-bottom: 0.06em;
+}
+.about-line-inner {
+  display: block;
+}
+.about-line-inner span {
+  color: var(--accentColor);
+}
+.about-intro {
+  max-width: 380px;
+  margin: 0 0 0.6em;
+  font-size: 15px;
+  font-weight: 300;
   line-height: 1.6;
+  color: var(--aboutMuted);
 }
 
-/* --- Media Queries for Larger Screens --- */
-@media only screen and (min-width: 1025px) {
-  .about-section {
-    height: var(--vh);
-  }
-  
-  .about-me p {
-    font-size: 1.5rem;
-    line-height: 1.5;
-  }
-  
-  /* Make the image even larger on huge screens if desired */
-  .about-image {
-    max-width: 850px; 
+/* Portrait + copy */
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(32px, 6vw, 110px);
+  align-items: center;
+  margin-bottom: 110px;
+}
+
+/* Photo card: hairline frame, soft fade, quiet name plate */
+.about-poster {
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+  justify-self: center;
+}
+.about-poster-border {
+  border-radius: 24px;
+  padding: 1px;
+  background: linear-gradient(160deg, rgba(194, 164, 255, 0.35), rgba(234, 229, 236, 0.06) 45%);
+}
+.about-poster-frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 23px;
+  background: #0d0a10;
+}
+.about-poster-media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.about-poster-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+}
+.about-poster-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(11, 8, 12, 0.85) 100%);
+  pointer-events: none;
+}
+.about-poster-head {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  right: 20px;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(234, 229, 236, 0.7);
+}
+.about-poster-head span:first-child {
+  color: var(--accentColor);
+  letter-spacing: 1px;
+}
+.about-poster-name {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 22px;
+  z-index: 2;
+}
+.about-poster-kicker {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(234, 229, 236, 0.65);
+  margin-bottom: 6px;
+}
+.about-poster-name strong {
+  display: block;
+  font-size: clamp(24px, 2.2vw, 32px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.about-poster-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18px;
+  padding: 0 4px;
+}
+.about-poster-project {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.about-poster-project small {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--aboutMuted);
+}
+.about-poster-project span {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--accentColor);
+}
+.about-poster-dots {
+  display: flex;
+  gap: 8px;
+}
+.about-poster-dots button {
+  width: 22px;
+  height: 4px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: rgba(234, 229, 236, 0.2);
+  cursor: pointer;
+  transition: width 0.4s, background 0.4s;
+}
+.about-poster-dots button.is-active {
+  width: 40px;
+  background: var(--accentColor);
+}
+
+.about-copy p {
+  font-size: clamp(16px, 1.2vw, 19px);
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--aboutMuted);
+  margin: 0 0 22px;
+}
+.about-copy .about-lead {
+  font-size: clamp(20px, 1.8vw, 28px);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--textColor);
+  letter-spacing: -0.01em;
+}
+.about-copy strong {
+  font-weight: 600;
+  color: var(--accentColor);
+}
+.about-copy em {
+  font-style: normal;
+  color: var(--textColor);
+  border-bottom: 1px solid var(--accentColor);
+}
+
+.about-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 30px 0 0;
+}
+.about-tags li {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--aboutLine);
+  font-size: 13px;
+  letter-spacing: 1px;
+  transition: border-color 0.3s, color 0.3s, background 0.3s;
+}
+.about-tags li:hover {
+  border-color: var(--accentColor);
+  color: var(--accentColor);
+  background: rgba(194, 164, 255, 0.06);
+}
+
+/* Pillars with cursor spotlight */
+.about-pillars {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 120px;
+}
+.about-pillar {
+  --mx: 50%;
+  --my: 50%;
+  position: relative;
+  padding: 30px 26px 34px;
+  border-radius: 22px;
+  border: 1px solid var(--aboutLine);
+  background: rgba(255, 255, 255, 0.015);
+  overflow: hidden;
+  transition: border-color 0.4s, translate 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.about-pillar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(260px circle at var(--mx) var(--my), rgba(194, 164, 255, 0.16), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.about-pillar:hover {
+  border-color: rgba(194, 164, 255, 0.4);
+  translate: 0 -6px;
+}
+.about-pillar:hover::before {
+  opacity: 1;
+}
+.about-pillar-num {
+  display: block;
+  font-size: 13px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--accentColor);
+  margin-bottom: 50px;
+}
+.about-pillar h3 {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
+}
+.about-pillar p {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--aboutMuted);
+  margin: 0;
+}
+
+/* Outline type band, full-bleed */
+.about-band {
+  margin: 0 0 110px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.about-band-row {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.about-band-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding-right: 0.35em;
+  font-size: clamp(48px, 8vw, 130px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(234, 229, 236, 0.14);
+}
+.about-band-row--b span {
+  -webkit-text-stroke: 1px rgba(194, 164, 255, 0.22);
+}
+.about-band-row i {
+  font-style: normal;
+  font-size: 0.4em;
+  color: var(--accentColor);
+  -webkit-text-stroke: 0;
+}
+
+/* Ambition */
+.about-ambition {
+  position: relative;
+  margin: 0;
+  max-width: 1100px;
+  padding-left: clamp(20px, 3vw, 40px);
+}
+.about-ambition-rule {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--accentColor);
+  transform-origin: top;
+}
+.about-ambition-label {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accentColor);
+  margin-bottom: 18px;
+}
+.about-ambition p {
+  font-size: clamp(24px, 3vw, 46px);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+.about-ambition mark {
+  color: inherit;
+  background: linear-gradient(transparent 62%, rgba(194, 164, 255, 0.35) 62%) no-repeat 0 0 / 100% 100%;
+}
+
+/* Tablet */
+@media only screen and (max-width: 1024px) {
+  .about-pillars {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media only screen and (min-width: 1950px) {
-  .about-me p {
-    font-size: 2rem;
-    line-height: 1.5;
-  }
-}
-/* Phones: stack image above text instead of squeezing them side by side */
+/* Phones */
 @media only screen and (max-width: 767px) {
   .about-section {
-    min-height: auto;
     padding: 100px 0 40px;
   }
-  .about-container {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.5rem;
-    padding: 0;
+  .about-head {
+    gap: 20px;
+    margin-bottom: 60px;
   }
-  .about-image-container {
-    flex: none;
-    width: 100%;
-    justify-content: center;
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-bottom: 70px;
   }
-  .about-image {
-    max-width: 300px;
+  .about-poster {
+    max-width: 360px;
   }
-  .about-me {
-    flex: none;
-    max-width: none;
+  .about-pillars {
+    grid-template-columns: 1fr;
+    margin-bottom: 80px;
   }
-  .about-me h2 {
-    font-size: 14px;
-    letter-spacing: 5px;
-    margin: 0 0 14px;
+  .about-pillar-num {
+    margin-bottom: 24px;
   }
-  .about-me p {
-    font-size: 1.3rem;
-    line-height: 1.5;
-    margin: 0;
+  .about-band {
+    margin-bottom: 70px;
   }
 }
