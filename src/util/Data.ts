@@ -104,5 +104,16 @@ export const workData: WorkItem[] = [
     width: 1600,
     height: 1041,
     link: "https://github.com/Damiduuofc/KDU-MINI-MART-POS-SYSTEM",
+  },
+  {
+    id: 9,
+    title: "Super Mario Run — DSA Edition",
+    category: "Game Development / DSA",
+    tools: "Java 21, libGDX, LWJGL3, Gradle, JUnit 5",
+    image: "/images/super-mario-dsa.webp",
+    alt: "Super Mario Run DSA Edition, a 2D Java platformer built with libGDX using hand-written data structures",
+    width: 1600,
+    height: 1041,
+    link: "https://github.com/Damiduuofc/Super-Mario-Run-DSA-Edition",
   }
 ];
