@@ -35,32 +35,32 @@ export const hackathonData: HackathonItem[] = [
     tags: ["UI/UX Design", "Design Thinking", "Prototyping", "Teamwork"],
     photos: [
       {
-        src: "/images/hackathons/cre8x-team.jpg",
+        src: "/images/hackathons/cre8x-team.webp",
         alt: "Team Beyond Interface standing in front of the Cre8X 3.0 banner",
         caption: "The Cre8X 3.0",
       },
       {
-        src: "/images/hackathons/cre8x-award.jpg",
+        src: "/images/hackathons/cre8x-award.webp",
         alt: "Receiving the finalist recognition on stage at Cre8X 3.0",
         caption: "The Cre8X 3.0",
       },
       {
-        src: "/images/hackathons/cre8x-finalists.jpg",
+        src: "/images/hackathons/cre8x-finalists.webp",
         alt: "Team Beyond Interface on stage holding finalist certificates",
         caption: "The Cre8X 3.0",
       },
       {
-        src: "/images/hackathons/cre8x-certificate.jpg",
+        src: "/images/hackathons/cre8x-certificate.webp",
         alt: "Cre8X 3.0 certificate of achievement awarded to Damidu Abeysinghe",
         caption: "The Cre8X 3.0",
       },
       {
-        src: "/images/hackathons/cre8x-stage.jpg",
+        src: "/images/hackathons/cre8x-stage.webp",
         alt: "The Cre8X 3.0 stage at General Sir John Kotelawala Defence University",
         caption: "The Cre8X 3.0",
       },
       {
-        src: "/images/hackathons/cre8x-participants.jpg",
+        src: "/images/hackathons/cre8x-participants.webp",
         alt: "Group photo of all Cre8X 3.0 participants on stage",
         caption: "The Cre8X 3.0",
       },

@@ -15,13 +15,15 @@ import "./styles/About.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Headline lines; each rises out of its own mask when the section scrolls in
-const HEADLINE: React.ReactNode[] = [
-  "Technology is",
-  <>
-    more than <span>code.</span>
-  </>,
+// Headline, split into letters that flip up out of each line's mask.
+// The accent word gets the purple colour and a drawn underline.
+const HEADLINE: { word: string; accent?: boolean }[][] = [
+  [{ word: "Technology" }, { word: "is" }],
+  [{ word: "more" }, { word: "than" }, { word: "code.", accent: true }],
 ];
+
+const INTRO =
+  "It's about understanding problems, bringing people together, and delivering solutions that make a difference.";
 
 const PILLARS = [
   {
@@ -66,9 +68,9 @@ const Words = ({ text }: { text: string }) => (
 );
 
 const COPY = [
-  "My interests go beyond software development — into understanding business requirements, planning solutions, coordinating teams, and turning ideas into practical digital products.",
-  "I've built web and mobile apps, information systems and AI-powered solutions, including *Care101*, a digital hospital management system that improves coordination between patients and healthcare providers.",
-  "Outside the classroom I take part in research and hackathons, sharpening my communication, leadership, teamwork and technical skills along the way.",
+  "My interests go beyond software development — into understanding _business requirements_, planning solutions, coordinating teams, and turning ideas into practical digital products.",
+  "I've built web and mobile apps, information systems and AI-powered solutions, including _Care101_, a digital hospital management system that improves coordination between patients and healthcare providers.",
+  "Outside the classroom I take part in _research and hackathons_, sharpening my communication, leadership, teamwork and technical skills along the way.",
 ];
 
 const PHOTOS = [
@@ -149,10 +151,6 @@ const PosterCard = () => {
       </div>
 
       <div className="about-poster-foot">
-        <div className="about-poster-project">
-          <small>Key project</small>
-          <span>Care101</span>
-        </div>
         <div className="about-poster-dots" role="tablist" aria-label="Choose photo">
           {PHOTOS.map((p, i) => (
             <button
@@ -194,134 +192,162 @@ const About = () => {
     () => {
       if (isLoading) return;
       const mm = gsap.matchMedia();
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        // Re-plays when scrolled back up past the trigger, so reveals work both ways
-        const toggle = "play none none reverse";
+      mm.add(
+        { motion: "(prefers-reduced-motion: no-preference)" },
+        (ctx) => {
+          const { motion: canAnimate } = ctx.conditions as Record<string, boolean>;
+          if (!canAnimate) return;
 
-        // Eyebrow: rule draws out, label follows
-        gsap
-          .timeline({ scrollTrigger: { trigger: ".about-eyebrow", start: "top 88%", toggleActions: toggle } })
-          .from(".about-eyebrow-line", { scaleX: 0, transformOrigin: "left center", duration: 0.9, ease: "expo.out" })
-          .from(".about-eyebrow > span:not(.about-eyebrow-line)", { autoAlpha: 0, x: -12, duration: 0.6, ease: "power3.out" }, "-=0.6");
+          // Re-plays when scrolled back up past the trigger, so reveals work both ways
+          const toggle = "play none none reverse";
 
-        // Headline lines slide up out of their masks, then the supporting copy fades in
-        gsap.set(".about-line-inner", { yPercent: 120 });
-        gsap.set(".about-intro", { autoAlpha: 0, y: 20 });
-        gsap
-          .timeline({ scrollTrigger: { trigger: ".about-head", start: "top 80%", toggleActions: toggle } })
-          .to(".about-line-inner", { yPercent: 0, duration: 1.1, ease: "expo.out", stagger: 0.1 })
-          .to(".about-intro", { autoAlpha: 1, y: 0, duration: 0.9, ease: "expo.out" }, "-=0.7");
+          // Eyebrow: rule draws out, label follows
+          gsap
+            .timeline({ scrollTrigger: { trigger: ".about-eyebrow", start: "top 88%", toggleActions: toggle } })
+            .from(".about-eyebrow-line", { scaleX: 0, transformOrigin: "left center", duration: 0.9, ease: "expo.out" })
+            .from(".about-eyebrow > span:not(.about-eyebrow-line)", { autoAlpha: 0, x: -12, duration: 0.6, ease: "power3.out" }, "-=0.6");
 
-        // Photo: the frame opens from a small window while the photo settles from a
-        // zoom, both tied to scroll position
-        gsap
-          .timeline({
-            scrollTrigger: { trigger: ".about-poster", start: "top 92%", end: "center 55%", scrub: 0.8 },
-          })
-          .fromTo(
-            ".about-poster-border",
-            { clipPath: "inset(22% 18% 22% 18% round 24px)" },
-            { clipPath: "inset(0% 0% 0% 0% round 24px)", ease: "power2.out" }
-          )
-          .fromTo(".about-poster-media", { scale: 1.35 }, { scale: 1, ease: "power2.out" }, 0);
+          // Headline: letters flip up out of their masks one after another, the
+          // underline draws under "code." with a glow pulse, then the intro fades in.
+          // Played on a timer once in view: text moved frame-by-frame with the
+          // scroll shimmers.
+          gsap.set(".about-ch", { yPercent: 115, rotateX: -95, autoAlpha: 0 });
+          gsap.set(".about-hw-underline", { scaleX: 0 });
+          gsap.set(".about-intro", { autoAlpha: 0, y: 30 });
+          gsap
+            .timeline({ scrollTrigger: { trigger: ".about-head", start: "top 75%", toggleActions: toggle } })
+            .to(".about-ch", {
+              yPercent: 0,
+              rotateX: 0,
+              autoAlpha: 1,
+              duration: 1.1,
+              ease: "expo.out",
+              stagger: 0.035,
+            })
+            .to(".about-hw-underline", { scaleX: 1, duration: 0.9, ease: "expo.inOut" }, "-=0.5")
+            .fromTo(
+              ".about-hw.is-accent",
+              { textShadow: "0 0 0px rgba(194,164,255,0)" },
+              { textShadow: "0 0 40px rgba(194,164,255,0.7)", duration: 0.45, ease: "power2.out", yoyo: true, repeat: 1 },
+              "<0.3"
+            )
+            .to(".about-intro", { autoAlpha: 1, y: 0, duration: 0.9, ease: "expo.out" }, "-=0.8");
 
-        // Name plate and footer slide in once the photo is mostly open
-        gsap
-          .timeline({ scrollTrigger: { trigger: ".about-poster", start: "top 45%", toggleActions: toggle } })
-          .from(".about-poster-name > *", { autoAlpha: 0, y: 26, duration: 0.8, ease: "expo.out", stagger: 0.08 })
-          .from(".about-poster-head", { autoAlpha: 0, duration: 0.6 }, "<")
-          .from(".about-poster-foot", { autoAlpha: 0, y: 14, duration: 0.7, ease: "expo.out" }, "<0.1");
+          // Photo: opens from a small window while zooming out, tied to scroll.
+          // Only clip-path and the image's scale change, so nothing jitters.
+          gsap
+            .timeline({
+              scrollTrigger: { trigger: ".about-poster", start: "top 95%", end: "center 50%", scrub: 1 },
+            })
+            .fromTo(
+              ".about-poster-border",
+              { clipPath: "inset(36% 28% 36% 28% round 24px)" },
+              { clipPath: "inset(0% 0% 0% 0% round 24px)", ease: "power2.out" }
+            )
+            .fromTo(".about-poster-media", { scale: 1.5 }, { scale: 1, ease: "power2.out", force3D: true }, 0);
 
-        // Copy reads itself in: each word lights up as the paragraph scrolls past
-        gsap.utils.toArray<HTMLElement>(".about-copy p, .about-ambition p").forEach((p) => {
+          // Name plate and footer slide in once the photo is mostly open
+          gsap
+            .timeline({ scrollTrigger: { trigger: ".about-poster", start: "top 45%", toggleActions: toggle } })
+            .from(".about-poster-name > *", { autoAlpha: 0, y: 26, duration: 0.8, ease: "expo.out", stagger: 0.08 })
+            .from(".about-poster-head", { autoAlpha: 0, duration: 0.6 }, "<")
+            .from(".about-poster-foot", { autoAlpha: 0, y: 14, duration: 0.7, ease: "expo.out" }, "<0.1");
+
+          // Copy reads itself in: each word brightens from dim grey as the paragraph
+          // scrolls past (opacity and colour only, so nothing moves or shimmers)
+          gsap.utils.toArray<HTMLElement>(".about-copy p, .about-ambition p").forEach((p) => {
+            gsap.fromTo(
+              p.querySelectorAll(".about-rw"),
+              { opacity: 0.1, color: "#6f6976" },
+              {
+                opacity: 1,
+                color: p.matches(".about-lead, .about-ambition p") ? "#ffffff" : "#d6d0dc",
+                ease: "none",
+                stagger: 0.1,
+                scrollTrigger: { trigger: p, start: "top 90%", end: "bottom 60%", scrub: 0.5 },
+              }
+            );
+          });
+
+          // Key phrases get a highlighter swipe once they've been read
+          gsap.utils.toArray<HTMLElement>(".about-copy mark, .about-ambition mark").forEach((m) => {
+            gsap.fromTo(
+              m,
+              { backgroundSize: "0% 100%" },
+              {
+                backgroundSize: "100% 100%",
+                ease: "power1.inOut",
+                scrollTrigger: { trigger: m, start: "top 75%", end: "top 50%", scrub: 0.6 },
+              }
+            );
+          });
+
+          // Tags pop in one after another
+          gsap.from(".about-tags li", {
+            autoAlpha: 0,
+            y: 18,
+            scale: 0.9,
+            duration: 0.6,
+            ease: "back.out(1.8)",
+            stagger: 0.06,
+            scrollTrigger: { trigger: ".about-tags", start: "top 90%", toggleActions: toggle },
+          });
+
+          // Pillar cards flip up from a tilt in a wave as they come into view
+          const pillarsHidden = { autoAlpha: 0, y: 120, rotateX: -40, transformPerspective: 900, transformOrigin: "50% 100%" };
+          gsap.set(".about-pillar", pillarsHidden);
+          ScrollTrigger.batch(".about-pillar", {
+            start: "top 90%",
+            onEnter: (els) =>
+              gsap.to(els, { autoAlpha: 1, y: 0, rotateX: 0, duration: 1.2, ease: "expo.out", stagger: 0.14, overwrite: true }),
+            onLeaveBack: (els) => gsap.to(els, { ...pillarsHidden, duration: 0.45, ease: "power2.in", overwrite: true }),
+          });
+
+          // Band rows fade up as they enter
+          gsap.from(".about-band-row span", {
+            autoAlpha: 0,
+            duration: 1,
+            ease: "power2.out",
+            stagger: 0.04,
+            scrollTrigger: { trigger: ".about-band", start: "top 85%", toggleActions: toggle },
+          });
+
+          // Ambition: side rule grows with scroll, label slides in
           gsap.fromTo(
-            p.querySelectorAll(".about-rw"),
-            { opacity: 0.14 },
+            ".about-ambition-rule",
+            { scaleY: 0 },
             {
-              opacity: 1,
+              scaleY: 1,
               ease: "none",
-              stagger: 0.1,
-              scrollTrigger: { trigger: p, start: "top 88%", end: "bottom 62%", scrub: 0.5 },
+              scrollTrigger: { trigger: ".about-ambition", start: "top 85%", end: "bottom 60%", scrub: 0.5 },
             }
           );
-        });
+          gsap.from(".about-ambition-label", {
+            autoAlpha: 0,
+            x: -16,
+            duration: 0.7,
+            ease: "expo.out",
+            scrollTrigger: { trigger: ".about-ambition", start: "top 85%", toggleActions: toggle },
+          });
 
-        // Tags pop in one after another
-        gsap.from(".about-tags li", {
-          autoAlpha: 0,
-          y: 18,
-          scale: 0.9,
-          duration: 0.6,
-          ease: "back.out(1.8)",
-          stagger: 0.06,
-          scrollTrigger: { trigger: ".about-tags", start: "top 90%", toggleActions: toggle },
-        });
-
-        // Pillar cards tip up and rise in a wave
-        const pillarsHidden = { autoAlpha: 0, y: 80, rotateX: -12, transformPerspective: 900 };
-        gsap.set(".about-pillar", pillarsHidden);
-        ScrollTrigger.batch(".about-pillar", {
-          start: "top 88%",
-          onEnter: (els) =>
-            gsap.to(els, { autoAlpha: 1, y: 0, rotateX: 0, duration: 1.1, ease: "expo.out", stagger: 0.12, overwrite: true }),
-          onLeaveBack: (els) => gsap.to(els, { ...pillarsHidden, duration: 0.45, ease: "power2.in", overwrite: true }),
-        });
-
-        // Band rows fade up as they enter
-        gsap.from(".about-band-row span", {
-          autoAlpha: 0,
-          duration: 1,
-          ease: "power2.out",
-          stagger: 0.04,
-          scrollTrigger: { trigger: ".about-band", start: "top 85%", toggleActions: toggle },
-        });
-
-        // Ambition: side rule grows with scroll, label slides in
-        gsap.fromTo(
-          ".about-ambition-rule",
-          { scaleY: 0 },
-          {
-            scaleY: 1,
-            ease: "none",
-            scrollTrigger: { trigger: ".about-ambition", start: "top 85%", end: "bottom 60%", scrub: 0.5 },
-          }
-        );
-        gsap.from(".about-ambition-label", {
-          autoAlpha: 0,
-          x: -16,
-          duration: 0.7,
-          ease: "expo.out",
-          scrollTrigger: { trigger: ".about-ambition", start: "top 85%", toggleActions: toggle },
-        });
-
-        // Outline band slides sideways with scroll, rows in opposite directions.
-        // Positions snap to whole pixels: sub-pixel steps make the thin outlines shimmer.
-        const wholePx = { x: (v: string) => `${Math.round(parseFloat(v))}px` };
-        const shift = (el: HTMLElement) => -Math.round(el.scrollWidth / 4);
-        const bandScroll = { trigger: ".about-band", start: "top bottom", end: "bottom top", scrub: 0.4 };
-        const [rowA, rowB] = gsap.utils.toArray<HTMLElement>(".about-band-row");
-        gsap.fromTo(
-          rowA,
-          { x: 0 },
-          { x: () => shift(rowA), ease: "none", force3D: true, modifiers: wholePx, scrollTrigger: bandScroll }
-        );
-        gsap.fromTo(
-          rowB,
-          { x: () => shift(rowB) },
-          { x: 0, ease: "none", force3D: true, modifiers: wholePx, scrollTrigger: { ...bandScroll } }
-        );
-
-        // Underline draws beneath the ambition line
-        gsap.fromTo(
-          ".about-ambition mark",
-          { backgroundSize: "0% 100%" },
-          {
-            backgroundSize: "100% 100%",
-            ease: "none",
-            scrollTrigger: { trigger: ".about-ambition", start: "top 80%", end: "bottom 55%", scrub: 0.6 },
-          }
-        );
-      });
+          // Outline band slides sideways with scroll, rows in opposite directions.
+          // Positions snap to whole pixels: sub-pixel steps make the thin outlines shimmer.
+          const wholePx = { x: (v: string) => `${Math.round(parseFloat(v))}px` };
+          const shift = (el: HTMLElement) => -Math.round(el.scrollWidth / 4);
+          const bandScroll = { trigger: ".about-band", start: "top bottom", end: "bottom top", scrub: 0.4 };
+          const [rowA, rowB] = gsap.utils.toArray<HTMLElement>(".about-band-row");
+          gsap.fromTo(
+            rowA,
+            { x: 0 },
+            { x: () => shift(rowA), ease: "none", force3D: true, modifiers: wholePx, scrollTrigger: bandScroll }
+          );
+          gsap.fromTo(
+            rowB,
+            { x: () => shift(rowB) },
+            { x: 0, ease: "none", force3D: true, modifiers: wholePx, scrollTrigger: { ...bandScroll } }
+          );
+        }
+      );
     },
     { scope: sectionRef, dependencies: [isLoading] }
   );
@@ -337,17 +363,26 @@ const About = () => {
       </div>
 
       <div className="about-head">
-        <h2 className="about-headline">
+        <h2 className="about-headline" aria-label="Technology is more than code.">
           {HEADLINE.map((line, i) => (
-            <span key={i} className="about-line">
-              <span className="about-line-inner">{line}</span>
+            <span key={i} className="about-line" aria-hidden="true">
+              {line.map(({ word, accent }, j) => (
+                <Fragment key={j}>
+                  <span className={`about-hw${accent ? " is-accent" : ""}`}>
+                    {[...word].map((c, k) => (
+                      <span key={k} className="about-ch">
+                        {c}
+                      </span>
+                    ))}
+                    {accent && <span className="about-hw-underline" />}
+                  </span>
+                  {j < line.length - 1 && " "}
+                </Fragment>
+              ))}
             </span>
           ))}
         </h2>
-        <p className="about-intro">
-          It's about understanding problems, bringing people together, and delivering solutions that make
-          a difference.
-        </p>
+        <p className="about-intro">{INTRO}</p>
       </div>
 
       <div className="about-grid">
@@ -355,7 +390,7 @@ const About = () => {
 
         <div className="about-copy">
           <p className="about-lead">
-            <Words text="Hello! I'm *Damidu Abeysinghe*, an Information Systems undergraduate at General Sir John Kotelawala Defence University." />
+            <Words text="Hello! I'm _Damidu Abeysinghe_, an Information Systems undergraduate at General Sir John Kotelawala Defence University." />
           </p>
           {COPY.map((t) => (
             <p key={t.slice(0, 12)}>
@@ -381,7 +416,7 @@ const About = () => {
           {[...BAND, ...BAND].map((w, i) => (
             <span key={i}>
               {w}
-              <i>✦</i>
+              <i className="about-band-sep" />
             </span>
           ))}
         </div>
@@ -389,7 +424,7 @@ const About = () => {
           {[...BAND, ...BAND].reverse().map((w, i) => (
             <span key={i}>
               {w}
-              <i>✦</i>
+              <i className="about-band-sep" />
             </span>
           ))}
         </div>

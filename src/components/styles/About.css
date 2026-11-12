@@ -66,14 +66,32 @@
 .about-line {
   display: block;
   overflow: hidden;
-  /* room for descenders inside the mask */
-  padding-bottom: 0.06em;
+  perspective: 900px;
+  /* room for descenders and the underline inside the mask */
+  padding-bottom: 0.12em;
 }
-.about-line-inner {
-  display: block;
+.about-hw {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
 }
-.about-line-inner span {
+.about-hw.is-accent {
   color: var(--accentColor);
+}
+.about-ch {
+  display: inline-block;
+  transform-origin: 50% 100%;
+  backface-visibility: hidden;
+}
+.about-hw-underline {
+  position: absolute;
+  left: 0.02em;
+  right: 0.3em;
+  bottom: -0.02em;
+  height: 0.07em;
+  border-radius: 1em;
+  background: var(--accentColor);
+  transform-origin: left center;
 }
 .about-intro {
   max-width: 380px;
@@ -175,25 +193,9 @@
 .about-poster-foot {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-top: 18px;
   padding: 0 4px;
-}
-.about-poster-project {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-}
-.about-poster-project small {
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--aboutMuted);
-}
-.about-poster-project span {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--accentColor);
 }
 .about-poster-dots {
   display: flex;
@@ -317,7 +319,7 @@
   margin: 0;
 }
 
-/* Outline type band, full-bleed */
+/* Word band: solid type so it reads clearly, white row over a purple row */
 .about-band {
   margin: 0 0 110px;
   overflow: hidden;
@@ -336,24 +338,28 @@
 .about-band-row span {
   display: inline-flex;
   align-items: center;
-  gap: 0.35em;
-  padding-right: 0.35em;
-  font-size: clamp(48px, 8vw, 130px);
-  font-weight: 700;
-  line-height: 1.05;
+  gap: 0.4em;
+  padding-right: 0.4em;
+  font-size: clamp(44px, 7vw, 116px);
+  font-weight: 600;
+  line-height: 1.1;
   letter-spacing: -0.04em;
   text-transform: uppercase;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(234, 229, 236, 0.14);
+  color: var(--textColor);
 }
 .about-band-row--b span {
-  -webkit-text-stroke: 1px rgba(194, 164, 255, 0.22);
-}
-.about-band-row i {
-  font-style: normal;
-  font-size: 0.4em;
   color: var(--accentColor);
-  -webkit-text-stroke: 0;
+}
+/* Separator: a short rounded dash in the opposite row's colour */
+.about-band-sep {
+  display: inline-block;
+  width: 0.45em;
+  height: 0.09em;
+  border-radius: 1em;
+  background: var(--accentColor);
+}
+.about-band-row--b .about-band-sep {
+  background: var(--textColor);
 }
 
 /* Ambition */
@@ -387,9 +393,15 @@
   letter-spacing: -0.025em;
   margin: 0;
 }
+/* Highlighter marks on key phrases; GSAP swipes them in on scroll */
+.about-copy mark,
 .about-ambition mark {
   color: inherit;
-  background: linear-gradient(transparent 62%, rgba(194, 164, 255, 0.35) 62%) no-repeat 0 0 / 100% 100%;
+  padding: 0 0.12em;
+  margin: 0 -0.06em;
+  background: linear-gradient(transparent 58%, rgba(194, 164, 255, 0.38) 58%) no-repeat 0 0 / 100% 100%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 /* Tablet */

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import "./styles/WhatIDo.css";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -95,17 +95,11 @@ const WhatIDo = () => {
               </p>
               <h5>Skillset & tools</h5>
               <div className="what-content-flex">
-                <div className="what-tags">JavaScript</div>
-                <div className="what-tags">TypeScript</div>
-                <div className="what-tags">Html</div>
-                <div className="what-tags">React</div>
-                <div className="what-tags">Css</div>
-                <div className="what-tags">Node.js</div>
-                <div className="what-tags">Express.js</div>
-                <div className="what-tags">Java</div>
-                <div className="what-tags">MySql</div>
-                <div className="what-tags">MongoDB</div>
-
+                {["JavaScript", "TypeScript", "Html", "React", "Css", "Node.js", "Express.js", "Java", "MySql", "MongoDB"].map((tool, i) => (
+                  <div key={tool} className="what-tags" style={{ "--i": i } as CSSProperties}>
+                    {tool}
+                  </div>
+                ))}
               </div>
               <div className="what-arrow"></div>
             </div>
@@ -136,10 +130,11 @@ const WhatIDo = () => {
               </p>
               <h5>Skillset & tools</h5>
               <div className="what-content-flex">
-                <div className="what-tags">Figma</div>
-                <div className="what-tags">PhotoShop</div>
-                <div className="what-tags">LightRoom</div>
-
+                {["Figma", "PhotoShop", "LightRoom"].map((tool, i) => (
+                  <div key={tool} className="what-tags" style={{ "--i": i } as CSSProperties}>
+                    {tool}
+                  </div>
+                ))}
               </div>
               <div className="what-arrow"></div>
             </div>

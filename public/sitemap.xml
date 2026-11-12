@@ -3,22 +3,22 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://damidus-portfolio.vercel.app/</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://damidus-portfolio.vercel.app/og-image.jpg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://damidus-portfolio.vercel.app/images/research/npairc-2026-conference.jpg</image:loc>
+      <image:loc>https://damidus-portfolio.vercel.app/images/research/npairc-2026-conference.webp</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://damidus-portfolio.vercel.app/images/hackathons/cre8x-team.jpg</image:loc>
+      <image:loc>https://damidus-portfolio.vercel.app/images/hackathons/cre8x-team.webp</image:loc>
     </image:image>
   </url>
   <url>
     <loc>https://damidus-portfolio.vercel.app/projects</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

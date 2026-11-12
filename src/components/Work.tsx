@@ -54,6 +54,8 @@ const Work = () => {
                   tools={project.tools}
                   image={project.image}
                   alt={project.alt || project.title}
+                  width={project.width}
+                  height={project.height}
                   video={project.video}
                   link={project.link}
                 />

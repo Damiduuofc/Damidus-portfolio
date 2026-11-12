@@ -18,6 +18,8 @@ const navLinks = [
 ];
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
+// Mobile address-bar show/hide changes the viewport height; don't re-measure for it
+ScrollTrigger.config({ ignoreMobileResize: true });
 export let smoother: ScrollSmoother;
 
 const Navbar = () => {
@@ -65,14 +67,9 @@ const Navbar = () => {
       activeSmoother.paused(false);
     }
 
-    const handleResize = () => {
-      ScrollTrigger.refresh();
-    };
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    // ScrollTrigger already re-measures (debounced) on real resizes. A manual
+    // refresh on every resize event also fired when a phone's address bar slid
+    // in or out mid-scroll, making the page jump and shake.
   }, []);
 
   const scrollToSection = (targetSelector: string | number) => {

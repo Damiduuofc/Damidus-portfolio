@@ -231,13 +231,42 @@
   gap: 5px;
   flex-wrap: wrap;
 }
+/* Tool chips: accent-tinted so they read as highlights, and they pop in
+   one after another when their box opens */
 .what-tags {
+  --i: 0;
   font-size: 13px;
   font-weight: 400;
   padding: 2px 7px;
-  background-color: rgba(255, 255, 255, 0.15);
-  border: 1px solid #ffffff50;
+  color: var(--accentColor);
+  background-color: rgba(194, 164, 255, 0.12);
+  border: 1px solid rgba(194, 164, 255, 0.4);
   border-radius: 30px;
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.3s,
+    color 0.3s,
+    border-color 0.3s,
+    box-shadow 0.3s;
+  transition-delay: calc(var(--i) * 40ms);
+}
+.what-tags:hover {
+  color: #0b080c;
+  background-color: var(--accentColor);
+  border-color: var(--accentColor);
+  box-shadow: 0 0 18px rgba(194, 164, 255, 0.55);
+  transition-delay: 0s;
+}
+/* Collapsed boxes keep chips faded and slightly lowered */
+.what-content .what-tags {
+  opacity: 0.35;
+  transform: translateY(6px);
+}
+.what-noTouch:hover .what-tags,
+.what-content-active .what-tags {
+  opacity: 1;
+  transform: none;
 }
 @media only screen and (max-width: 1600px) {
   .what-box h2 {

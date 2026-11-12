@@ -114,12 +114,12 @@ export const publicationsData: PublicationItem[] = [
     ],
     photos: [
       {
-        src: "/images/research/npairc-2026-conference.jpg",
+        src: "/images/research/npairc-2026-conference.webp",
         alt: "Damidu Abeysinghe at the NPAIRC 2026 International Research Conference, National Police Academy",
         caption: "At NPAIRC 2026, National Police Academy",
       },
       {
-        src: "/images/research/npairc-2026-proceedings.jpg",
+        src: "/images/research/npairc-2026-proceedings.webp",
         alt: "The paper's abstract printed in the NPAIRC 2026 conference proceedings, paper NPAIRC/SL/OP/172",
         caption: "Published in the conference proceedings",
       },

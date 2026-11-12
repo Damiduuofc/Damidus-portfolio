@@ -18,7 +18,14 @@ const WorkImage = (props: WorkItem) => {
           </div>
         )}
         
-        <img src={props.image} alt={props.alt || "Work project"} />
+        <img
+          src={props.image}
+          alt={props.alt || props.title}
+          width={props.width}
+          height={props.height}
+          loading="lazy"
+          decoding="async"
+        />
         
       
       </a>
