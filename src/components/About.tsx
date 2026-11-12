@@ -198,8 +198,10 @@ const About = () => {
           const { motion: canAnimate } = ctx.conditions as Record<string, boolean>;
           if (!canAnimate) return;
 
-          // Re-plays when scrolled back up past the trigger, so reveals work both ways
-          const toggle = "play none none reverse";
+          // Reveals play once. Reversing on scroll-up hid content that was still on
+          // screen (triggers sit at 75–90% of the viewport) and replaying it from a
+          // half-reversed state made the section flicker when scrolling up and down.
+          const toggle = "play none none none";
 
           // Eyebrow: rule draws out, label follows
           gsap
@@ -298,9 +300,9 @@ const About = () => {
           gsap.set(".about-pillar", pillarsHidden);
           ScrollTrigger.batch(".about-pillar", {
             start: "top 90%",
+            once: true,
             onEnter: (els) =>
               gsap.to(els, { autoAlpha: 1, y: 0, rotateX: 0, duration: 1.2, ease: "expo.out", stagger: 0.14, overwrite: true }),
-            onLeaveBack: (els) => gsap.to(els, { ...pillarsHidden, duration: 0.45, ease: "power2.in", overwrite: true }),
           });
 
           // Band rows fade up as they enter
