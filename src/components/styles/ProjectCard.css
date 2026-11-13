@@ -1,0 +1,237 @@
+/* Modern glass project card, shared by the home carousel and /projects */
+.pcard {
+  --mx: 50%;
+  --my: 0%;
+  position: relative;
+  border-radius: 24px;
+  padding: 1px; /* room for the gradient border */
+  background: linear-gradient(
+    145deg,
+    rgba(194, 164, 255, 0.35),
+    rgba(255, 255, 255, 0.06) 40%,
+    rgba(255, 255, 255, 0.04) 60%,
+    rgba(194, 164, 255, 0.18)
+  );
+  transition: box-shadow 0.45s ease, background 0.45s ease;
+  isolation: isolate;
+}
+/* No translate on hover: moving the card under a still cursor makes it jitter */
+.pcard:hover {
+  background: linear-gradient(
+    145deg,
+    rgba(194, 164, 255, 0.7),
+    rgba(255, 255, 255, 0.08) 40%,
+    rgba(255, 255, 255, 0.06) 60%,
+    rgba(194, 164, 255, 0.4)
+  );
+  box-shadow: 0 24px 60px -20px rgba(150, 100, 255, 0.45);
+}
+
+.pcard-link {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: 23px;
+  padding: 12px;
+  box-sizing: border-box;
+  color: var(--textColor);
+  background: linear-gradient(180deg, #151018 0%, #0e0a10 100%);
+  overflow: hidden;
+}
+.pcard-link:hover {
+  color: var(--textColor);
+}
+/* Cursor-following spotlight */
+.pcard-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    420px circle at var(--mx) var(--my),
+    rgba(194, 164, 255, 0.16),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.pcard:hover .pcard-link::before {
+  opacity: 1;
+}
+.pcard-link > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Media */
+.pcard-media {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: #1b161e;
+}
+.pcard-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 0.5s ease;
+  filter: saturate(0.9);
+}
+.pcard:hover .pcard-media img {
+  transform: scale(1.06);
+  filter: saturate(1.05);
+}
+.pcard-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 8, 12, 0) 55%,
+    rgba(11, 8, 12, 0.65) 100%
+  );
+  pointer-events: none;
+}
+
+.pcard-badge,
+.pcard-num {
+  position: absolute;
+  top: 12px;
+  z-index: 1;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 7px 12px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.pcard-badge {
+  left: 12px;
+  background: rgba(11, 8, 12, 0.55);
+  color: var(--textColor);
+}
+.pcard-num {
+  right: 12px;
+  background: rgba(194, 164, 255, 0.18);
+  color: var(--accentColor);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Body */
+.pcard-body {
+  padding: 20px 10px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+.pcard-title {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.pcard-tags {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pcard-tags li {
+  font-size: 12px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  color: #cfc8d6;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+.pcard:hover .pcard-tags li {
+  border-color: rgba(194, 164, 255, 0.25);
+}
+
+/* Footer */
+.pcard-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 14px 10px 6px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: #a69fae;
+  transition: color 0.3s ease;
+}
+.pcard:hover .pcard-footer {
+  color: var(--textColor);
+}
+.pcard-arrow {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 18px;
+  color: var(--textColor);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 0.3s ease, color 0.3s ease;
+}
+.pcard:hover .pcard-arrow {
+  transform: rotate(45deg);
+  background: var(--accentColor);
+  border-color: var(--accentColor);
+  color: #0b080c;
+}
+
+.pcard-link:focus-visible {
+  outline: 2px solid var(--accentColor);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pcard,
+  .pcard-media img,
+  .pcard-arrow {
+    transition: none;
+  }
+  .pcard:hover .pcard-media img {
+    transform: none;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .pcard {
+    border-radius: 20px;
+  }
+  .pcard-link {
+    border-radius: 19px;
+    padding: 10px;
+  }
+  .pcard-media {
+    border-radius: 13px;
+  }
+  .pcard-title {
+    font-size: 18px;
+  }
+  .pcard-body {
+    padding: 16px 6px 4px;
+  }
+  .pcard-footer {
+    margin: 12px 6px 4px;
+  }
+}

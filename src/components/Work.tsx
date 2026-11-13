@@ -1,5 +1,5 @@
 import "./styles/Work.css";
-import WorkImage from "./WorkImage";
+import ProjectCard from "./ProjectCard";
 import { workData } from "../util/Data"; // 1. Import your data
 import { Link } from "react-router-dom";
 
@@ -32,32 +32,11 @@ const Work = () => {
               <div
                 className={`work-box ${index >= workData.length ? "is-clone" : ""}`}
                 key={`${project.id}-${index}`}
-                aria-hidden={index >= workData.length || undefined}
               >
-                <div className="work-info">
-                  <div className="work-title">
-                    <h3>0{(index % workData.length) + 1}</h3>
-
-                    <div>
-                      <h4>{project.title}</h4>
-                      <p>{project.category}</p>
-                    </div>
-                  </div>
-                  <h4>Tools and features</h4>
-                  <p>{project.tools}</p>
-                </div>
-
-                <WorkImage
-                  id={project.id}
-                  title={project.title}
-                  category={project.category}
-                  tools={project.tools}
-                  image={project.image}
-                  alt={project.alt || project.title}
-                  width={project.width}
-                  height={project.height}
-                  video={project.video}
-                  link={project.link}
+                <ProjectCard
+                  project={project}
+                  index={index % workData.length}
+                  hidden={index >= workData.length}
                 />
               </div>
             ))}

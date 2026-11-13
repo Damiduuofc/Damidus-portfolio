@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { workData } from "../util/Data";
-import WorkImage from "./WorkImage";
+import ProjectCard from "./ProjectCard";
 import "./styles/ProjectsPage.css";
 import { Link } from "react-router-dom";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+
+const ALL = "All";
 
 const ProjectsPage = () => {
   usePageMeta(
@@ -14,6 +16,17 @@ const ProjectsPage = () => {
   );
   useScrollReveal();
 
+  const [filter, setFilter] = useState(ALL);
+
+  const categories = useMemo(
+    () => [ALL, ...Array.from(new Set(workData.map((p) => p.category)))],
+    []
+  );
+
+  const visible = workData
+    .map((project, index) => ({ project, index }))
+    .filter(({ project }) => filter === ALL || project.category === filter);
+
   // Scrolls to the top of the page when the component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -21,45 +34,53 @@ const ProjectsPage = () => {
 
   return (
     <section className="projects-page" id="projects">
+      <div className="projects-glow" aria-hidden="true" />
       <div className="projects-container section-container">
         <div className="projects-header mt-5" data-reveal="up">
-          <h1 className="projects-title mt-5">
-            All <span>Projects</span>
-          </h1>
+          <div>
+            <p className="projects-eyebrow">
+              <span className="projects-dot" /> Selected work · {workData.length}{" "}
+              projects
+            </p>
+            <h1 className="projects-title mt-5">
+              All <span>Projects</span>
+            </h1>
+          </div>
           <Link className="projects-back" to="/#work" data-cursor="disable">
-            Back To Work
+            ← Back To Work
           </Link>
         </div>
 
-        <div className="projects-grid" data-reveal="children">
-          {workData.map((project, index) => (
-            <article className="projects-card" key={project.id}>
-              <div className="projects-meta">
-                <div className="work-title projects-title">
-                  <h3>0{index + 1}</h3>
+        <div
+          className="projects-filters"
+          role="tablist"
+          aria-label="Filter projects by category"
+          data-reveal="up"
+        >
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              type="button"
+              role="tab"
+              aria-selected={filter === cat}
+              className={`projects-filter ${filter === cat ? "is-active" : ""}`}
+              onClick={() => setFilter(cat)}
+              data-cursor="disable"
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
 
-                  <div>
-                    <h4>{project.title}</h4>
-                    <p>{project.category}</p>
-                  </div>
-                </div>
-                <h4>Tools</h4>
-                <p>{project.tools}</p>
-              </div>
-
-              <WorkImage
-                id={project.id}
-                title={project.title}
-                category={project.category}
-                tools={project.tools}
-                image={project.image}
-                alt={project.alt || project.title}
-                width={project.width}
-                height={project.height}
-                video={project.video}
-                link={project.link}
-              />
-            </article>
+        <div className="projects-grid" key={filter}>
+          {visible.map(({ project, index }, i) => (
+            <div
+              className="projects-cell"
+              key={project.id}
+              style={{ animationDelay: `${i * 70}ms` }}
+            >
+              <ProjectCard project={project} index={index} />
+            </div>
           ))}
         </div>
       </div>
