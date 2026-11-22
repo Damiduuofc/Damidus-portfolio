@@ -116,6 +116,8 @@ const Landing = () => {
     () => {
       if (isLoading) return;
       animateCharacter();
+      // Endless word swap is decorative motion: hold the first word instead
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       rollWords(".landing-h2-info", ".landing-h2-info-1");
       rollWords(".landing-h2-1", ".landing-h2-2");
     },
@@ -133,12 +135,12 @@ const Landing = () => {
                 {AVAILABILITY}
               </p>
             )}
-            <h2>
+            <p className="landing-hello">
               <span lang="si" className="landing-si">
                 ආයුබෝවන්
               </span>{" "}
               · Ayubowan, I'm
-            </h2>
+            </p>
             <h1>
               Damidu
               <br />
@@ -161,7 +163,8 @@ const Landing = () => {
               </a>
             </div>
           </div>
-          <div className="landing-info">
+          <p className="sr-only">A creative designer and developer</p>
+          <div className="landing-info" aria-hidden="true">
             <h3>A Creative</h3>
             <h2 className="landing-info-h2">
               <div className="landing-h2-1">Designer</div>

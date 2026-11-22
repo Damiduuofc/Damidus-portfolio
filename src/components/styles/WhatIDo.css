@@ -6,6 +6,7 @@
   position: relative;
   opacity: 1;
   height: 100vh;
+  height: 100svh;
   width: var(--cWidth);
   max-width: 1920px;
   margin: auto;
@@ -50,14 +51,14 @@
   box-sizing: border-box;
 }
 
-.what-noTouch:hover,
+.what-noTouch:is(:hover, :focus-within),
 .what-content-active {
   min-height: 67%;
   padding: 40px 50px;
 }
 
-.what-noTouch:hover ~ .what-content,
-.what-box-in:hover .what-noTouch:not(:hover),
+.what-noTouch:is(:hover, :focus-within) ~ .what-content,
+.what-box-in:is(:hover, :focus-within) .what-noTouch:not(:hover, :focus-within),
 .what-content.what-sibling {
   min-height: 33%;
   padding: 10px 50px;
@@ -162,7 +163,7 @@
   width: 10px;
   height: 10px;
 }
-.what-noTouch:hover .what-arrow::before,
+.what-noTouch:is(:hover, :focus-within) .what-arrow::before,
 .what-content-active .what-arrow::before {
   transform: translate(-50%, -20%) rotate(-225deg);
 }
@@ -263,7 +264,7 @@
   opacity: 0.35;
   transform: translateY(6px);
 }
-.what-noTouch:hover .what-tags,
+.what-noTouch:is(:hover, :focus-within) .what-tags,
 .what-content-active .what-tags {
   opacity: 1;
   transform: none;
@@ -290,13 +291,13 @@
   .what-content p {
     font-size: 13px;
   }
-  .what-noTouch:hover,
+  .what-noTouch:is(:hover, :focus-within),
   .what-content-active {
     padding: 20px 30px;
   }
 
-  .what-noTouch:hover ~ .what-content,
-  .what-box-in:hover .what-noTouch:not(:hover),
+  .what-noTouch:is(:hover, :focus-within) ~ .what-content,
+  .what-box-in:is(:hover, :focus-within) .what-noTouch:not(:hover, :focus-within),
   .what-content.what-sibling {
     padding: 10px 30px;
   }
@@ -330,14 +331,14 @@
   .what-content p {
     font-size: 14px;
   }
-  .what-noTouch:hover,
+  .what-noTouch:is(:hover, :focus-within),
   .what-content-active {
     min-height: 67%;
     padding: 50px;
   }
 
-  .what-noTouch:hover ~ .what-content,
-  .what-box-in:hover .what-noTouch:not(:hover),
+  .what-noTouch:is(:hover, :focus-within) ~ .what-content,
+  .what-box-in:is(:hover, :focus-within) .what-noTouch:not(:hover, :focus-within),
   .what-content.what-sibling {
     min-height: 33%;
     padding: 10px 50px;
@@ -375,9 +376,9 @@
     opacity: 0;
     transition: 0.3s;
   }
-  .what-noTouch:hover h5,
+  .what-noTouch:is(:hover, :focus-within) h5,
   .what-content-active h5,
-  .what-noTouch:hover .what-content-flex,
+  .what-noTouch:is(:hover, :focus-within) .what-content-flex,
   .what-content-active .what-content-flex {
     opacity: 1;
   }
@@ -385,18 +386,19 @@
     padding: 30px;
   }
   .what-content p {
-    font-size: 11px;
+    font-size: 14px;
+    line-height: 1.5;
   }
-  .what-noTouch:hover,
+  .what-noTouch:is(:hover, :focus-within),
   .what-content-active {
     padding: 10px 30px;
   }
   .what-tags {
-    font-size: 11px;
+    font-size: 12px;
   }
 
-  .what-noTouch:hover ~ .what-content,
-  .what-box-in:hover .what-noTouch:not(:hover),
+  .what-noTouch:is(:hover, :focus-within) ~ .what-content,
+  .what-box-in:is(:hover, :focus-within) .what-noTouch:not(:hover, :focus-within),
   .what-content.what-sibling {
     padding: 5px 30px;
   }
@@ -420,4 +422,12 @@
     font-size: 7rem;
     line-height: 6.8rem;
   }
+}
+
+.what-h2-line {
+  display: block;
+}
+.what-content:focus-visible {
+  outline: 2px solid var(--accentColor);
+  outline-offset: 4px;
 }

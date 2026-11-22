@@ -7,6 +7,7 @@
   width: var(--cWidth);
   max-width: 900px;
   min-height: 100vh;
+  min-height: 100svh;
   margin: 0 auto;
   box-sizing: border-box;
   padding: 120px 0 60px;

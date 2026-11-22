@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { MdArrowBack, MdArrowForward, MdClose } from "react-icons/md";
@@ -21,6 +21,12 @@ interface PhotoViewerProps {
 // would otherwise trap a position: fixed overlay inside the scrolling page.
 const PhotoViewer = ({ photos, index, onClose, onIndexChange }: PhotoViewerProps) => {
   const touchStartX = useRef<number | null>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+
+  // Return focus to the photo that opened the viewer once it closes. Captured
+  // during render, before the close button's autoFocus takes focus away.
+  const [opener] = useState(() => document.activeElement as HTMLElement | null);
+  useEffect(() => () => opener?.focus({ preventScroll: true }), [opener]);
   const hasMany = photos.length > 1;
   const active = photos[index];
 
@@ -33,6 +39,22 @@ const PhotoViewer = ({ photos, index, onClose, onIndexChange }: PhotoViewerProps
     smoother?.paused(true);
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
+      // Keep Tab inside the dialog
+      if (e.key === "Tab" && dialogRef.current) {
+        const items = [...dialogRef.current.querySelectorAll<HTMLElement>("button")];
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        } else if (!dialogRef.current.contains(document.activeElement)) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
       if (hasMany && e.key === "ArrowRight") onIndexChange((index + 1) % photos.length);
       if (hasMany && e.key === "ArrowLeft")
         onIndexChange((index - 1 + photos.length) % photos.length);
@@ -46,6 +68,7 @@ const PhotoViewer = ({ photos, index, onClose, onIndexChange }: PhotoViewerProps
 
   return createPortal(
     <div
+      ref={dialogRef}
       className="photo-viewer"
       role="dialog"
       aria-modal="true"
@@ -73,7 +96,7 @@ const PhotoViewer = ({ photos, index, onClose, onIndexChange }: PhotoViewerProps
         }}
       >
         <img key={active.src} src={active.src} alt={active.alt} />
-        <figcaption>
+        <figcaption aria-live="polite">
           <span>{active.caption}</span>
           {hasMany && (
             <span className="photo-viewer-count">

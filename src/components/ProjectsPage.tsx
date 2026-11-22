@@ -39,7 +39,7 @@ const ProjectsPage = () => {
         <div className="projects-header mt-5" data-reveal="up">
           <div>
             <p className="projects-eyebrow">
-              <span className="projects-dot" /> Selected work · {workData.length}{" "}
+              <span className="projects-dot" aria-hidden="true" /> Selected work · {workData.length}{" "}
               projects
             </p>
             <h1 className="projects-title mt-5">
@@ -47,13 +47,13 @@ const ProjectsPage = () => {
             </h1>
           </div>
           <Link className="projects-back" to="/#work" data-cursor="disable">
-            ← Back To Work
+            <span aria-hidden="true">←</span> Back to work
           </Link>
         </div>
 
         <div
           className="projects-filters"
-          role="tablist"
+          role="group"
           aria-label="Filter projects by category"
           data-reveal="up"
         >
@@ -61,8 +61,7 @@ const ProjectsPage = () => {
             <button
               key={cat}
               type="button"
-              role="tab"
-              aria-selected={filter === cat}
+              aria-pressed={filter === cat}
               className={`projects-filter ${filter === cat ? "is-active" : ""}`}
               onClick={() => setFilter(cat)}
               data-cursor="disable"
@@ -71,6 +70,12 @@ const ProjectsPage = () => {
             </button>
           ))}
         </div>
+
+        <p className="sr-only" aria-live="polite">
+          {`Showing ${visible.length} ${visible.length === 1 ? "project" : "projects"}${
+            filter === ALL ? "" : ` in ${filter}`
+          }`}
+        </p>
 
         <div className="projects-grid" key={filter}>
           {visible.map(({ project, index }, i) => (

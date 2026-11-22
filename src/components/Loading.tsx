@@ -52,7 +52,7 @@ const Loading = ({ percent }: { percent: number }) => {
   return (
     <>
       <div className="loading-header">
-        <a href="/#" className="loader-title" data-cursor="disable">
+        <a href="/#" className="loader-title" data-cursor="disable" aria-label="Damidu Abeysinghe Home">
           <span style={{ color: "#ffffff", fontSize: "1.5rem", fontWeight: "bold" }}>{"<D"}</span>
           <span style={{ color: "#c2a4ff", fontSize: "1.5rem", fontWeight: "bold" }}>{"A/>"}</span>
         </a>
@@ -69,7 +69,9 @@ const Loading = ({ percent }: { percent: number }) => {
       </div>
       <div className="loading-screen">
         <div className="loading-marquee">
-          <Marquee>
+          <Marquee
+            play={!window.matchMedia("(prefers-reduced-motion: reduce)").matches}
+          >
             <span> A Creative Developer</span> <span>A Creative Designer</span>
             <span>A Creative Designer</span> <span>A Creative Developer</span>
           </Marquee>
@@ -82,7 +84,7 @@ const Loading = ({ percent }: { percent: number }) => {
           <div className={`loading-button ${loaded && "loading-complete"}`}>
             <div className="loading-container">
               <div className="loading-content">
-                <div className="loading-content-in">
+                <div className="loading-content-in" role="status">
                   Loading <span>{percent}%</span>
                 </div>
               </div>

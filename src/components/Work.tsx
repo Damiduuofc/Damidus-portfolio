@@ -26,7 +26,7 @@ const Work = () => {
           Swipe to explore <span>→</span>
         </p>
 
-        <div className="work-marquee" data-reveal="up" aria-label="Projects carousel">
+        <div className="work-marquee" data-reveal="up" role="region" aria-label="Featured projects">
           <div className="work-track">
             {loopedWorkData.map((project, index) => (
               <div

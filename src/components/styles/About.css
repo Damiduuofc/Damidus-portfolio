@@ -202,6 +202,7 @@
   gap: 8px;
 }
 .about-poster-dots button {
+  position: relative;
   width: 22px;
   height: 4px;
   padding: 0;
@@ -210,6 +211,12 @@
   background: rgba(234, 229, 236, 0.2);
   cursor: pointer;
   transition: width 0.4s, background 0.4s;
+}
+/* Bars are 4px tall; this invisible pad gives each a 24px+ click/tap target */
+.about-poster-dots button::before {
+  content: "";
+  position: absolute;
+  inset: -12px -4px;
 }
 .about-poster-dots button.is-active {
   width: 40px;

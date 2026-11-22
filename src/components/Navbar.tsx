@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -26,13 +26,38 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLElement>(null);
 
-  // Freeze page scroll behind the mobile menu; Escape closes it
+  // Freeze page scroll behind the mobile menu; move focus into it, keep Tab
+  // cycling between the menu and its close button, Escape closes it and hands
+  // focus back to the toggle
   useEffect(() => {
     const activeSmoother = ScrollSmoother.get();
     if (!menuOpen) return;
     activeSmoother?.paused(true);
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
+    const menu = menuRef.current;
+    const toggle = toggleRef.current;
+    menu?.querySelector<HTMLElement>("a")?.focus({ preventScroll: true });
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        toggle?.focus();
+        return;
+      }
+      if (e.key !== "Tab" || !menu || !toggle) return;
+      const items = [toggle, ...menu.querySelectorAll<HTMLElement>("a")];
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
     window.addEventListener("keydown", onKey);
     return () => {
       window.removeEventListener("keydown", onKey);
@@ -185,6 +210,7 @@ const Navbar = () => {
         </ul>
 
         <button
+          ref={toggleRef}
           type="button"
           className={`nav-toggle ${menuOpen ? "is-open" : ""}`}
           onClick={() => setMenuOpen((open) => !open)}
@@ -199,6 +225,7 @@ const Navbar = () => {
 
       {/* Lives outside .header: its transform would trap a fixed overlay */}
       <nav
+        ref={menuRef}
         id="mobile-menu"
         className={`mobile-menu ${menuOpen ? "is-open" : ""}`}
         aria-label="Mobile"

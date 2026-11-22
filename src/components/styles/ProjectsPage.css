@@ -1,6 +1,7 @@
 .projects-page {
   position: relative;
   min-height: 100vh;
+  min-height: 100svh;
   box-sizing: border-box;
   padding: 120px 0 100px;
   overflow: hidden;

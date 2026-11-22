@@ -134,7 +134,7 @@
   top: 12%;
   left: 0;
 }
-.landing-intro h2 {
+.landing-intro .landing-hello {
   margin: 0;
   color: var(--accentColor);
   font-size: 22px;
@@ -151,7 +151,7 @@
   font-family: "Geist", sans-serif;
 }
 
-.landing-intro h2 .landing-si {
+.landing-intro .landing-hello .landing-si {
   font-weight: 500;
 }
 
@@ -337,7 +337,7 @@ h2.landing-info-h2 {
   .landing-info h3 {
     font-size: 18px;
   }
-  .landing-intro h2 {
+  .landing-intro .landing-hello {
     font-size: 18px;
   }
   .landing-intro h1 {
@@ -356,7 +356,7 @@ h2.landing-info-h2 {
   .landing-character {
     width: min(26vw, 380px);
   }
-  .landing-intro h2 {
+  .landing-intro .landing-hello {
     font-size: 25px;
   }
   .landing-intro h1 {
@@ -424,7 +424,7 @@ h2.landing-info-h2 {
   .landing-character {
     width: min(20vw, 460px);
   }
-  .landing-intro h2 {
+  .landing-intro .landing-hello {
     font-size: 35px;
   }
   .landing-intro h1 {
@@ -475,7 +475,7 @@ h2.landing-info-h2 {
     padding: 9px 15px;
     font-size: 13px;
   }
-  .landing-intro h2 {
+  .landing-intro .landing-hello {
     font-size: 18px;
     letter-spacing: 1px;
   }

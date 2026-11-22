@@ -11,6 +11,7 @@ const venueShort = (name: string) => name.match(/\(([^)]+)\)/)?.[1] ?? name;
 const Publications = () => {
   const [expandedAbstract, setExpandedAbstract] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [copyFailedId, setCopyFailedId] = useState<string | null>(null);
   const [viewer, setViewer] = useState<{ photos: ViewerPhoto[]; index: number } | null>(null);
 
   const toggleAbstract = (id: string) => {
@@ -23,7 +24,9 @@ const Publications = () => {
       setCopiedId(id);
       setTimeout(() => setCopiedId(null), 2000);
     } catch {
-      // Clipboard unavailable (insecure context / denied); fail silently
+      // Clipboard unavailable (insecure context / denied): say so instead of doing nothing
+      setCopyFailedId(id);
+      setTimeout(() => setCopyFailedId(null), 3000);
     }
   };
 
@@ -109,6 +112,13 @@ const Publications = () => {
                   ))}
                 </dl>
 
+                <span className="sr-only" role="status">
+                  {copiedId === pub.id
+                    ? "Citation copied to clipboard"
+                    : copyFailedId === pub.id
+                      ? "Couldn't copy the citation. Your browser blocked clipboard access."
+                      : ""}
+                </span>
                 <div className="pub-actions" data-reveal="up">
                   <button
                     type="button"
@@ -130,6 +140,8 @@ const Publications = () => {
                       <>
                         Copied <MdCheck className="pub-action-icon" />
                       </>
+                    ) : copyFailedId === pub.id ? (
+                      <>Copy blocked</>
                     ) : (
                       <>
                         Cite <MdContentCopy className="pub-action-icon" />

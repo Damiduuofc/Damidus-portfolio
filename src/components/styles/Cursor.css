@@ -24,10 +24,10 @@
   --size: 0px;
 }
 @media only screen and (min-width: 600px) {
-  .cursor-main {
+  .cursor-main.cursor-enabled {
     --size: 50px;
   }
-  .cursor-disable {
+  .cursor-main.cursor-disable {
     --size: 0px;
   }
 }

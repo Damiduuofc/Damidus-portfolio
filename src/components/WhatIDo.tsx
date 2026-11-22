@@ -7,37 +7,34 @@ const WhatIDo = () => {
   const setRef = (el: HTMLDivElement | null, index: number) => {
     containerRef.current[index] = el;
   };
+  // Touch screens can't hover, so a tap toggles the card open instead. Keep the
+  // exact handler references so cleanup really removes them.
   useEffect(() => {
-    if (ScrollTrigger.isTouch) {
-      containerRef.current.forEach((container) => {
-        if (container) {
-          container.classList.remove("what-noTouch");
-          container.addEventListener("click", () => handleClick(container));
-        }
+    if (!ScrollTrigger.isTouch) return;
+    const bound = containerRef.current
+      .filter((c): c is HTMLDivElement => !!c)
+      .map((container) => {
+        container.classList.remove("what-noTouch");
+        const onClick = () => handleClick(container);
+        container.addEventListener("click", onClick);
+        return () => container.removeEventListener("click", onClick);
       });
-    }
-    return () => {
-      containerRef.current.forEach((container) => {
-        if (container) {
-          container.removeEventListener("click", () => handleClick(container));
-        }
-      });
-    };
+    return () => bound.forEach((off) => off());
   }, []);
   return (
     <div className="whatIDO">
       <div className="what-box">
         <h2 className="title" data-reveal="up">
           W<span className="hat-h2">HAT</span>
-          <div>
+          <span className="what-h2-line">
             I<span className="do-h2"> DO</span>
-          </div>
+          </span>
         </h2>
       </div>
       <div className="what-box">
         <div className="what-box-in">
           <div className="what-border2">
-            <svg width="100%">
+            <svg width="100%" aria-hidden="true">
               <line
                 x1="0"
                 y1="0"
@@ -61,9 +58,11 @@ const WhatIDo = () => {
           <div
             className="what-content what-noTouch"
             ref={(el) => setRef(el, 0)}
+            tabIndex={0}
+            aria-label="Develop: description and skills"
           >
             <div className="what-border1">
-              <svg height="100%">
+              <svg height="100%" aria-hidden="true">
                 <line
                   x1="0"
                   y1="0"
@@ -107,9 +106,11 @@ const WhatIDo = () => {
           <div
             className="what-content what-noTouch"
             ref={(el) => setRef(el, 1)}
+            tabIndex={0}
+            aria-label="Design: description and skills"
           >
             <div className="what-border1">
-              <svg height="100%">
+              <svg height="100%" aria-hidden="true">
                 <line
                   x1="0"
                   y1="100%"

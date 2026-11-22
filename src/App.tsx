@@ -42,12 +42,21 @@ const HomePage = () => {
   );
 };
 
+// Move focus (not just scroll) past the nav so the next Tab lands in the page
+const skipToContent = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  e.preventDefault();
+  document.getElementById("main-content")?.focus({ preventScroll: true });
+};
+
 const App = () => {
   const { pathname } = useLocation();
   const isHome = pathname === "/";
 
   return (
     <LoadingProvider>
+      <a className="skip-link" href="#main-content" onClick={skipToContent}>
+        Skip to content
+      </a>
       {/* Fixed UI lives outside #smooth-content: ScrollSmoother transforms that
           element, which would make position: fixed scroll with the page */}
       <Navbar />
@@ -59,6 +68,7 @@ const App = () => {
       )}
       <div id="smooth-wrapper">
         <main id="smooth-content" className="main-body">
+          <div id="main-content" tabIndex={-1} />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/projects" element={<ProjectsPage />} />

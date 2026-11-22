@@ -37,7 +37,7 @@ export function initialFX() {
       [
         ".landing-status",
         ".landing-info h3",
-        ".landing-intro h2",
+        ".landing-intro .landing-hello",
         ".landing-intro h1",
         ".landing-greeting-note",
         ".landing-cta",

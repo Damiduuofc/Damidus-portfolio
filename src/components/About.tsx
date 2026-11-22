@@ -89,16 +89,17 @@ const PHOTOS = [
 const PosterCard = () => {
   const reduce = useReducedMotion();
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [6, -6]), { stiffness: 120, damping: 20 });
   const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-7, 7]), { stiffness: 120, damping: 20 });
 
   useEffect(() => {
-    if (reduce) return;
+    if (reduce || paused) return;
     const id = window.setInterval(() => setActive((i) => (i + 1) % PHOTOS.length), 4500);
     return () => window.clearInterval(id);
-  }, [reduce, active]);
+  }, [reduce, paused, active]);
 
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
     if (reduce) return;
@@ -109,13 +110,19 @@ const PosterCard = () => {
   const onLeave = () => {
     x.set(0);
     y.set(0);
+    setPaused(false);
   };
 
   return (
     <motion.div
       className="about-poster"
       onMouseMove={onMove}
+      onMouseEnter={() => setPaused(true)}
       onMouseLeave={onLeave}
+      onFocus={() => setPaused(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setPaused(false);
+      }}
       style={{ rotateX, rotateY, transformPerspective: 1200 }}
     >
       <div className="about-poster-border">
@@ -151,13 +158,12 @@ const PosterCard = () => {
       </div>
 
       <div className="about-poster-foot">
-        <div className="about-poster-dots" role="tablist" aria-label="Choose photo">
+        <div className="about-poster-dots" role="group" aria-label="Choose photo">
           {PHOTOS.map((p, i) => (
             <button
               key={p.src}
               type="button"
-              role="tab"
-              aria-selected={i === active}
+              aria-pressed={i === active}
               aria-label={`Photo ${i + 1}`}
               className={i === active ? "is-active" : ""}
               onClick={() => setActive(i)}
@@ -253,7 +259,7 @@ const About = () => {
             .timeline({ scrollTrigger: { trigger: ".about-poster", start: "top 45%", toggleActions: toggle } })
             .from(".about-poster-name > *", { autoAlpha: 0, y: 26, duration: 0.8, ease: "expo.out", stagger: 0.08 })
             .from(".about-poster-head", { autoAlpha: 0, duration: 0.6 }, "<")
-            .from(".about-poster-foot", { autoAlpha: 0, y: 14, duration: 0.7, ease: "expo.out" }, "<0.1");
+            .from(".about-poster-foot", { opacity: 0, y: 14, duration: 0.7, ease: "expo.out" }, "<0.1");
 
           // Copy reads itself in: each word brightens from dim grey as the paragraph
           // scrolls past (opacity and colour only, so nothing moves or shimmers)

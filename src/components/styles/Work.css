@@ -13,6 +13,7 @@
 .work-section {
   transition: 0s;
   min-height: 100vh;
+  min-height: 100svh;
   box-sizing: border-box;
 }
 .work-container {
@@ -20,6 +21,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-height: 100svh;
   align-content: stretch;
   justify-content: center;
   gap: 35px;
@@ -87,7 +89,8 @@
   animation: work-marquee 48s linear infinite;
   will-change: transform;
 }
-.work-track:hover {
+.work-track:hover,
+.work-track:focus-within {
   animation-play-state: paused;
 }
 .work-box {
@@ -149,9 +152,23 @@
     animation-duration: 56s;
   }
 }
+/* Reduced motion: no auto-scroll; the rail becomes a normal scrollable row */
 @media (prefers-reduced-motion: reduce) {
+  .work-marquee {
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+  }
   .work-track {
-    animation-duration: 120s;
+    animation: none;
+  }
+  .work-box {
+    scroll-snap-align: start;
+  }
+  .work-box.is-clone {
+    display: none;
+  }
+  .work-swipe-hint span {
+    animation: none;
   }
 }
 .work-swipe-hint {
